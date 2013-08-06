@@ -29,7 +29,7 @@ public abstract class ApplicationAction extends ActionSupport implements Session
     public static final AccessControl accessControl = new AccessControl();
 
     @Override
-    public final String execute() throws Exception {
+    public String execute() throws Exception {
         String ip = getIp();
         String sessionId = getSessionId();
         String actionName = ServletActionContext.getActionMapping().getName();

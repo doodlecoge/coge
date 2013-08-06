@@ -319,7 +319,9 @@ public class RegisterServiceImpl extends CommonService implements IRegisterServi
     public RegPeople getRegPeople(String cardCode) throws ServiceException {
         RegPeople r = null;
         try {
-            r = (RegPeople) commonDao.unique(DetachedCriteria.forClass(RegPeople.class).add(Restrictions.eq("identityCard", cardCode)));
+            r = (RegPeople) commonDao.unique(
+                    DetachedCriteria.forClass(RegPeople.class)
+                            .add(Restrictions.eq("identityCard", cardCode)));
         } catch (Exception e) {
             e.printStackTrace();
             throw new ServiceException("RegisterServiceImpl.getRegPeople:系统异常" + e.getMessage(), e);

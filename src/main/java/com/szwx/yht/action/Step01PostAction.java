@@ -40,14 +40,16 @@ public class Step01PostAction extends DataAccessAction {
     private int medicalType;
 
     public String execute() {
-
+        log.error(System.currentTimeMillis() + "-a");
 
         session.put("id", id);
         session.put("name", name);
         session.put("phone", phone);
 
         try {
+            log.error(System.currentTimeMillis() + "-b");
             RegPeople regPeople = registerService.getRegPeople(id);
+            log.error(System.currentTimeMillis() + "-c");
             if (regPeople == null) {
                 regPeople = new RegPeople();
                 regPeople.setIdentityCard(id);
@@ -57,7 +59,9 @@ public class Step01PostAction extends DataAccessAction {
 
             if (phone != null && !"".equals(phone.trim())) regPeople.setMobile(phone);
             regPeople.setMedicalType(medicalType);
+            log.error(System.currentTimeMillis() + "-d");
             registerService.saveOrUpdatePeople(regPeople);
+            log.error(System.currentTimeMillis() + "-e");
 
         } catch (ServiceException e) {
             session.put("ERR", e);
