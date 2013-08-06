@@ -125,17 +125,36 @@
     }
 
     function loadDocWork() {
-        jQuery.post('register_loadWorkScheamDoctor', {
-            docName: $("#docName").val(),
-            deptName: $("#dptName").val()
-        },function (data) {
+//        jQuery.post('register_loadWorkScheamDoctor', {
+//            docName: $("#docName").val(),
+//            deptName: $("#dptName").val()
+//        },function (data) {
+//            $(".schedule").html(data);
+//            enable();
+//        }).fail(function (data) {
+//                    $(".schedule").html('加载失败！请重新加载页面！');
+//                    enable();
+//                });
+
+        var xhr = jQuery.ajax({
+            url: 'load_doc_schedule',
+            type: 'POST',
+            dataType: 'html',
+            data: {
+                docName: $("#docName").val(),
+                deptName: $("#dptName").val()
+            }
+        });
+
+        xhr.done(function(data) {
             $(".schedule").html(data);
             enable();
-        }).fail(function (data) {
-                    console.log(data);
-                    $(".schedule").html('加载失败！请重新加载页面！');
-                    enable();
-                });
+        });
+
+        xhr.fail(function(data) {
+            $(".schedule").html('加载失败！请重新加载页面！');
+            enable();
+        });
     }
 
     function loadDptWork() {

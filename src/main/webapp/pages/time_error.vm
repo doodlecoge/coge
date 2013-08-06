@@ -1,0 +1,6 @@
+<span style="color: #f00; font-weight: bold; font-size: 36px;">
+    $errMsg
+</span>
+
+<input name="input" type="button" value="返回"
+       class="btnNormal" onclick="javascript:history.go(-1)"/>

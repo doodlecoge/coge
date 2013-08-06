@@ -7,6 +7,7 @@ import com.szwx.yht.dao.DepartmentDao;
 import com.szwx.yht.dao.DoctorDao;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,7 +38,7 @@ public class DataAccessAction extends ApplicationAction {
     }
 
     @Override
-    public String exec() throws IOException {
+    public String exec() throws Exception {
         return SUCCESS;
     }
 }

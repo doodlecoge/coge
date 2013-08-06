@@ -35,6 +35,8 @@
             <result name="not_found" type="redirectAction">
                 <param name="actionName">index</param>
             </result>
+
+            <result name="ERR" type="velocity">pages/err.vm</result>
         </global-results>
 
         <global-exception-mappings>
@@ -145,6 +147,7 @@
 
         <action name="step04" class="step04_action">
             <result name="success">page/toSaveRegister.jsp</result>
+            <result name="time_error">pages/time_error.vm</result>
             <!--<result name="success" type="velocity">pages/step04.vm</result>-->
         </action>
 
@@ -180,6 +183,14 @@
 
         <action name="reload_config" class="com.hch.security.ReloadConfigAction">
             <result name="success" type="velocity">pages/reload.vm</result>
+        </action>
+
+
+    </package>
+
+    <package name="aaa" namespace="/" extends="parent">
+        <action name="load_doc_schedule" class="load_doc_schedule">
+            <result name="success">/page/dgh_zj_wsDoctor.jsp</result>
         </action>
     </package>
 

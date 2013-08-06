@@ -14,7 +14,8 @@
 <script type="text/javascript">
 $(function() {
 	$('tbody>tr').hover(function() {
-		$(this).addClass('selected').siblings().removeClass('selected').end()
+		$(this).addClass('selected').siblings()
+                .removeClass('selected').end()
 	});
 })
 </script>

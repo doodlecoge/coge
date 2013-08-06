@@ -12,7 +12,7 @@ public enum Hospital {
     SLDQ("SLDQ", "苏州市立医院东区"),
     SLBQ("SLBQ", "苏州市立医院北区"),
     SDFY("SDFY", "苏州大学附属第一医院"),
-    SDFE("SDFE", "苏州大学附属第儿医院"),
+    SDFE("SDFE", "苏州大学附属第二医院"),
     SZET("SZET", "苏州大学附属儿童医院"),
     SZKQ("SZKQ", "苏州大学附属口腔医院"),
     ZYYY("ZYYY", "苏州中医医院"),

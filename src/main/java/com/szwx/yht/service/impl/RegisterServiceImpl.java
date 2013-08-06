@@ -38,8 +38,9 @@ public class RegisterServiceImpl extends CommonService implements IRegisterServi
     private IRegOrderDAO regOrderDao;
 
 
-    public List<WSDoctorListDto> getWsDoctorListDtos(String docName,
-                                                     String deptName, Page page, String hospitalId) throws ServiceException {
+    public List<WSDoctorListDto> getWsDoctorListDtos(
+            String docName, String deptName, Page page, String hospitalId
+    ) throws ServiceException {
 
 
 //		this.sendToProvince(null);

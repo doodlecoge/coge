@@ -29,7 +29,7 @@ public abstract class ApplicationAction extends ActionSupport implements Session
     public static final AccessControl accessControl = new AccessControl();
 
     @Override
-    public String execute() throws Exception {
+    public final String execute() throws Exception {
         String ip = getIp();
         String sessionId = getSessionId();
         String actionName = ServletActionContext.getActionMapping().getName();
@@ -47,32 +47,15 @@ public abstract class ApplicationAction extends ActionSupport implements Session
             }
         }
 
-        return this.exec();
+        String ret = null;
 
-//        IpBlockQueue ipQ = IpBlockQueue.getInstance();
-//        RegistrationQueue regQueue = RegistrationQueue.getInstance();
-//
-//        ipQ.enableAfterSomeTime();
-//        if(ipQ.contains(ip)) redirect("acc_dny");
-//
-//        regQueue.clearStaleQueuingUsers();
-//        QueuingUser queuingUser = regQueue.enQueue(sessionId);
-//        queuingUser.access();
-//        if(queuingUser.tooManyRequests()) {
-//            ipQ.enQueue(getIp());
-//        }
-//
-//        int order = regQueue.getOrder(sessionId);
-//
-//        if (order < Global.RegLimit) {
-//            return exec();
-//        } else {
-//            String actionName = ServletActionContext.getActionMapping().getName();
-//            if (!"index".equals(actionName))
-//                redirect("index");
-//        }
+        try {
+            ret = this.exec();
+        } catch (Exception e) {
+            return "ERR";
+        }
 
-//        return SUCCESS;
+        return ret;
     }
 
 
@@ -91,7 +74,7 @@ public abstract class ApplicationAction extends ActionSupport implements Session
         ServletActionContext.getResponse().sendRedirect(str);
     }
 
-    public abstract String exec() throws IOException;
+    public abstract String exec() throws Exception;
 
     protected String getSessionId() {
         return ServletActionContext.getRequest().getSession().getId();
