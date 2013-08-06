@@ -140,7 +140,7 @@
 ##                            <option value="2">园区医保</option>
                         </select>
                     </td>
-                    <td>请选择就诊医保类型，园区医保暂不支持</td>
+                    <td>请选择就诊医保类型，园区医保暂不支持，吴江市民卡暂不支持预约。</td>
                 </tr>
 ##                <tr>
 ##                    <td>市民卡号<br/>医保编号</td>
@@ -161,7 +161,7 @@
                     <td colspan="3">
                         <input type="checkbox" id="agreement" checked="true"/>
                         <label for="agreement">&nbsp;
-                                我已阅读并接受《苏州市个人认证系统服务协议》
+                                我已阅读并接受《苏州市预约挂号服务平台服务协议》
                             <a href="pages/licence.jsp" target="_blank">
                                 点击查看
                             </a>
@@ -172,7 +172,7 @@
                 <tr id="agree" style="display: none;">
                     <td colspan="3" style="color: #f00; font-weight: bold;">
 
-                            必须同意《苏州市个人认证系统服务协议》才能进行挂号！
+                            必须同意《苏州市预约挂号服务平台服务协议》才能进行挂号！
                     </td>
                 </tr>
 
