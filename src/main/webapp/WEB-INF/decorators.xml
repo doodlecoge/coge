@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<decorators defaultdir="/decorators">
+    <decorator name="null">
+        <pattern>/login</pattern>
+        <pattern>*.css</pattern>
+        <pattern>*.js</pattern>
+        <pattern>/index.html</pattern>
+        <pattern>/async/*</pattern>
+        <pattern>/get_doc_work_by_dpt</pattern>
+        <pattern>/get_dpt_lst</pattern>
+        <pattern>/register_loadWorkScheamDoctor*</pattern>
+        <pattern>/register_loadWorkScheamDepart*</pattern>
+        <pattern>/register_loadTimeList*</pattern>
+        <pattern>/queryRegister_*</pattern>
+    </decorator>
+
+    <decorator name="main" page="main.vm">
+        <pattern>/*</pattern>
+        <pattern>/queryRegister_toQueryRegisterList</pattern>
+    </decorator>
+</decorators>

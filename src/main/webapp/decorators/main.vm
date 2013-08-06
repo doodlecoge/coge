@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="no-js ie ie7 lte7 lte8 lte9" lang="cn-ZH"><![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8 lte8 lte9" lang="cn-ZH"><![endif]-->
+<!--[if IE 9 ]><html class="no-js ie ie9 lte9>" lang="cn-ZH"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js" lang="cn-ZH"><!--<![endif]-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>${title} - 苏州市12320网上预约便捷通道</title>
+
+    <link type="text/css" rel="stylesheet" href="$base/css/normalize.css"/>
+    <link type="text/css" rel="stylesheet" href="$base/css/font-awesome.css"/>
+    <link type="text/css" rel="stylesheet" href="$base/css/common.css"/>
+    <link type="text/css" rel="stylesheet" href="$base/css/site.css"/>
+
+    <script type="text/javascript" src="$base/js/jquery-1.9.1.js"></script>
+
+    <style type="text/css">
+
+    </style>
+
+    <script type="text/javascript">
+        $(window).unload(function() {
+        });
+    </script>
+
+    ${head}
+</head>
+
+<body>
+    <div id="wrapper">
+        #parse("decorators/head.vm")
+        <div id="body">${body}<br class="clearfloat" /></div>
+        #parse("decorators/foot.vm")
+    </div>
+</body>
+</html>

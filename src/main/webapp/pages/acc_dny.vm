@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+    <title>拒绝访问</title>
+    <style type="text/css">
+        .div{
+            text-align: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+<div class="div">
+    您的IP单位时间内，访问次数过多，拒绝访问！
+</div>
+<div class="div">
+    请过10分钟后再次访问。
+</div>
+</body>
+</html>

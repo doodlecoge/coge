@@ -1,0 +1,31 @@
+<table>
+    <colgroup>
+        <col style="width: 300px; text-align: right;" />
+    </colgroup>
+    <tbody>
+    <tr>
+        <td>姓名</td>
+        <td>$map.get("name")</td>
+    </tr>
+
+    <tr>
+        <td>身份证</td>
+        <td>$map.get("id")</td>
+    </tr>
+
+    <tr>
+        <td>医院</td>
+        <td>$map.get("id")</td>
+    </tr>
+
+    <tr>
+        <td>身份证</td>
+        <td>$map.get("id")</td>
+    </tr>
+
+    <tr>
+        <td>身份证</td>
+        <td>$map.get("id")</td>
+    </tr>
+    </tbody>
+</table>

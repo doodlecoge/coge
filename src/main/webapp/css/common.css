@@ -1,0 +1,80 @@
+inline-block {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+
+.btn0 {
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+
+    font-size: 12px;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    background: #eee;
+    background: -webkit-gradient(linear,left top,left bottom,from(white),to(#E7E7E7));
+    background: -moz-linear-gradient(top,white,#E7E7E7);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#FFFFFF',endColorstr = '#E7E7E7');
+}
+
+.btn {
+    background: #3D57B4;
+    color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.clearfloat {
+    clear: both;
+    height: 0;
+    font-size: 1px;
+    line-height: 0px;
+}
+
+
+
+.tbl {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.tbl th {
+    border: 1px solid #888;
+    padding: 0 5px;
+    height: 35px;
+}
+
+.tbl th.num {
+    text-align: right;
+}
+
+.tbl td {
+    border: 1px solid #888;
+    padding: 0 5px;
+    height: 25px;
+}
+
+.tbl td.num {
+    text-align: right;
+}
+
+.tbl thead td, .tbl thead th {
+    background: #69c;
+}
+
+.t30 {
+    zoom: 1;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity = 30)";
+    filter: alpha(opacity = 30);
+    -moz-opacity: 0.3;
+    -khtml-opacity: 0.3;
+    opacity: 0.3;
+}

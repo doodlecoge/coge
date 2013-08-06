@@ -1,0 +1,3 @@
+#macro(hello $msg)
+Hello <b>$msg</b>
+#end

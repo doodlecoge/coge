@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    <!--<bean id="abstractApplicationAction"-->
+          <!--class="com.cisco.qd.web.action.ApplicationAction"-->
+          <!--abstract="true">-->
+    <!--</bean>-->
+
+    <!--<bean id="dataAccessAction" class="com.cisco.qd.web.action.DataAccessAction" abstract="true" scope="prototype">-->
+        <!--<property name="dao" ref="theDao"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="apiAction" class="com.cisco.qd.web.action.ApiAction" abstract="true" parent="dataAccessAction">-->
+
+    <!--</bean>-->
+
+    <!--<bean id="homeAction" class="com.cisco.qd.web.action.HomeAction"/>-->
+
+    <!--<bean id="projectAction" class="com.cisco.qd.web.action.project.ProjectAction">-->
+        <!--<property name="projectDao" ref="projectDao"/>-->
+    <!--</bean>-->
+
+    <bean id="dataAccessAction" class="com.szwx.yht.action.DataAccessAction">
+        <property name="departmentDao" ref="departmentDao"></property>
+        <property name="doctorDao" ref="doctorDao"></property>
+        <property name="commonDao" ref="commonDao"></property>
+    </bean>
+
+    <bean id="queuing_action" class="com.szwx.yht.action.QueuingAction" parent="dataAccessAction"></bean>
+    <bean id="async_action" class="com.szwx.yht.action.AsyncAction" parent="dataAccessAction"></bean>
+    <bean id="step01_action" class="com.szwx.yht.action.Step01Action" parent="dataAccessAction"></bean>
+    <!--<bean id="step01_post_action" class="com.szwx.yht.action.Step01PostAction" parent="dataAccessAction"></bean>-->
+    <bean id="step02_action" class="com.szwx.yht.action.Step02Action" parent="dataAccessAction"></bean>
+    <bean id="step02_post_action" class="com.szwx.yht.action.Step02PostAction" parent="dataAccessAction"></bean>
+    <bean id="step03_action" class="com.szwx.yht.action.Step03Action" parent="dataAccessAction"></bean>
+    <bean id="step03_post_action" class="com.szwx.yht.action.Step03PostAction" parent="dataAccessAction"></bean>
+
+    <!--<bean id="step04_action" class="com.szwx.yht.action.Step04Action" parent="com"></bean>-->
+
+    <bean id="step04_post_action" class="com.szwx.yht.action.Step04PostAction" parent="dataAccessAction"></bean>
+    <bean id="step05_action" class="com.szwx.yht.action.Step05Action"></bean>
+
+    <bean id="get_doc_work_by_dpt" class="com.szwx.yht.action.GetDocWorkByDpt" parent="dataAccessAction"></bean>
+    <bean id="get_dpt_lst" class="com.szwx.yht.action.GetDptLstAction" parent="dataAccessAction"></bean>
+    <!--<bean id="security_code" class="com.szwx.yht.action.SecurityCodeAction"></bean>-->
+    <bean id="acc_dny" class="com.szwx.yht.action.AccessDeniedAction"></bean>
+    <bean id="sc" class="com.hch.security.SecurityCodeAction"></bean>
+
+    <!--<bean id="i18n_action" class="com.szwxx.yht.action.I18NAction" parent="dataAccessAction"></bean>-->
+
+
+    <!--<bean id="test_action" class="com.szwxx.yht.action.TestAction" parent="dataAccessAction"></bean>-->
+    <!--<bean id="uploadRegInfoAction" class="com.szwxx.yht.action.UploadRegInfoAction" parent="dataAccessAction"></bean>-->
+
+
+    <!--<bean id="reg_action" class="com.szwxx.yht.action.RegistrationAction" parent="dataAccessAction"></bean>-->
+    <!--<bean id="hospital_action" class="com.szwxx.yht.action.HospitalListAction" parent="dataAccessAction"></bean>-->
+    <!--<bean id="depart_action" class="com.szwxx.yht.action.DepartInfoListAction" parent="dataAccessAction"></bean>-->
+
+
+    <!--<bean id="user_info" class="com.szwxx.yht.action.async.UserInfoAction" parent="dataAccessAction"></bean>-->
+    <!--<bean id="check_code" class="com.szwxx.yht.action.async.PicCheckCodeAction" parent="dataAccessAction"></bean>-->
+    <!--<bean id="reg_panel" class="com.szwxx.yht.action.async.RegistrationPanelAction" parent="dataAccessAction"></bean>-->
+    <!--<bean id="work_by_date" class="com.szwxx.yht.action.async.ListWorkByDateAction" parent="dataAccessAction"></bean>-->
+    <!--<bean id="confirm" class="com.szwxx.yht.action.async.ConfirmAction" parent="dataAccessAction"></bean>-->
+</beans>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+
+
+<!--<class name="com.szwxx.yht.model.Department" table="YHT_DEPART" entity-name="Depart">-->
+    <!--<id name="departCodeNo" column="DEPART_CODE_NO"></id>-->
+    <!--<property name="departName" column="DEPART_NAME"></property>-->
+    <!--<property name="hospitalId" column="HOSPITAL_ID"></property>-->
+<!--</class>-->
+
+    <!--<class name="com.szwxx.yht.model.Doctor" table="YHT_DOCTOR" entity-name="Doctor">-->
+        <!--<id name="forWorkNo" column="FOR_WORK_NO"></id>-->
+        <!--<property name="name" column="NAME"></property>-->
+        <!--<property name="departCode"></property>-->
+    <!--</class>-->
+    <!--<class name="com.cisco.qd.vo.Dashboard" table="dashboards" entity-name="Dashboard">-->
+
+        <!--<id name="id" column="id" type="integer">-->
+            <!--<generator class="native"/>-->
+        <!--</id>-->
+
+        <!--<property name="name" column="name"/>-->
+        <!--<property name="layout" column="layout"/>-->
+        <!--<property name="type2" column="type" type="integer"/>-->
+        <!--<property name="pub" column="public"/>-->
+        <!--<property name="rank" column="rank"/>-->
+
+    <!--</class>-->
+
+    <!--<class name="com.szwxx.yht.model.User" table="users" entity-name="Users">-->
+        <!--<id name="id" column="id" type="integer"></id>-->
+        <!--<property name="name" column="username"></property>-->
+    <!--</class>-->
+
+</hibernate-mapping>

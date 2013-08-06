@@ -1,0 +1,53 @@
+<style type="text/css">
+    .tbl {
+        border: 1px solid #555;
+    }
+
+    .tbl td {
+        padding: 5px 10px;
+    }
+</style>
+
+<table class="tbl">
+    <tbody>
+    #set($sz = $dates.size())
+    #if($sz > 0)
+        #foreach($i in [0..$sz])
+            #if($i < $sz)
+                #set($dt = $dates.get($i))
+                #set($ds = $workSchedules.get($i))
+
+                <tr>
+                    <td rowspan="2" style="background: #eeaa00; font-weight: bold;">
+                        $dt<br/>
+                        $gdwbd.getWeekFormDate("$dt")</td>
+                    <td>上午</td>
+                    <td>
+                        #foreach($work in $ds.amWorks)
+                            <a href="javascript:void(0)" code="docCode">$work.docName</a>
+                        #end
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>下午</td>
+                    <td>
+                        #foreach($work in $ds.pmWorks)
+                            <a href="javascript:void(0)" code="docCode">$work.docName</a>
+                        #end
+                    </td>
+                </tr>
+            #end
+        #end
+    #else
+        没有排班信息！
+    #end
+    </tbody>
+</table>
+##private String docCode;
+##private String docName;
+##private String date;
+##private int ampm;
+##private int total;
+##private int yyNum;
+##private String week;

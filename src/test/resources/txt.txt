@@ -1,0 +1,12 @@
+doctorName: $("#doctorName").val(),
+departName: $("#departName").val(),
+userName: $("#userName").val(),
+telPhone: $("#telPhone").val(),
+registerName: $("#registerName").val(),
+"hospital.hospitalCode": $("#hospitalid").val(),
+beginTime: $("#beginTime").val(),
+endTime: $("#endTime").val(),
+regStratTime: $("#regStratTime").val(),
+regEndTime: $("#regEndTime").val(),
+way: 0,
+"page.pageNum": 1

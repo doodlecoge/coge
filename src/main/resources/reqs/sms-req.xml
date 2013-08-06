@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='GB18030'?>
+<Ipf>
+    <header>
+        <transactionId>2011011124586</transactionId>
+        <userName>test</userName>
+        <passWord>123456</passWord>
+    </header>
+    <body>
+        <mobile>13915696859</mobile>
+        <content>测试短信息</content>
+        <packageType>1</packageType>
+    </body>
+</Ipf>

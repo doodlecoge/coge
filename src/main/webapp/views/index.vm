@@ -1,0 +1,50 @@
+<h1>this is index.vm</h1>
+
+
+$math.max(1,2)
+
+<hr />
+
+<fieldset>
+    <legend>velocity marco</legend>
+    #hello("#stext('name=app_name')")
+</fieldset>
+
+<fieldset>
+    <legend>i18n text from properties files:</legend>
+    #stext("name=app_name")
+</fieldset>
+
+
+<hr />
+
+
+<ul>
+    <li>
+        <a href="$base/index">
+        $base/index
+        </a>
+    </li>
+    <li>
+        <a href="$base/index?request_locale=en">
+            $base/index?request_locale=en
+        </a>
+    </li>
+    <li>
+        <a href="$base/index?request_locale=zh_CN">
+            $base/index?request_locale=zh_CN
+        </a>
+    </li>
+    <li>
+        <a href="$base/index?request_locale=fr">
+            $base/index?request_locale=fr
+        </a>
+    </li>
+</ul>
+
+
+
+
+
+<i class="icon-fullscreen"></i>
+<i class="icon-search"></i>

@@ -1,0 +1,172 @@
+body {
+    background: #f0faff;
+}
+
+/**
+ * wrapper
+ */
+#wrapper {
+    width: 1000px;
+    margin: 0 auto;
+
+}
+
+#head {
+    height: 96px;
+    overflow: hidden;
+    background: url("../img/head.png") 0 0 no-repeat;
+}
+
+#body {
+    padding: 30px 0;
+}
+
+#body .col-left {
+    width: 278px;
+    float: left;
+}
+
+#body .col-right {
+    width: 700px;
+    float: right;
+}
+
+#body .col-right .right-cont {
+    border-top: 1px solid #b6cfe5;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+#footer {
+    line-height: 25px;
+    background: #efefef;
+    border-top: 1px solid #ccc;
+    padding: 0 10px;
+}
+
+/**
+ * navigation bar
+ */
+#nav_bar {
+    background: #f0f0f0 url(../img/dot.png) repeat-x left bottom;
+    height: 36px;
+    overflow: hidden;
+}
+
+#nav_bar ul {
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+}
+
+#nav_bar ul li {
+    vertical-align: top;
+    font-size: 14px;
+    list-style: none;
+
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+#nav_bar ul li a {
+    height: 35px;
+    line-height: 35px;
+    display: block;
+    border-right: 1px solid #ccc;
+    padding: 0 30px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#nav_bar ul li a.sel {
+    border-bottom: 1px solid #fff;
+    background: #fff;
+}
+
+
+
+
+ul.menu {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ccc;
+}
+
+ul.menu li {
+    list-style: none;
+}
+
+ul.menu li a {
+    display: block;
+    height: 48px;
+    line-height: 48px;
+    text-decoration: none;
+    border: 1px solid #b6cfe5;
+    border-bottom: 0;
+}
+
+.menu-title {
+    text-align: center;
+    background: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    color: #89c;
+}
+
+.menu-fh12320sy {
+    background: url(../img/fh12320sy.png) 0 0 no-repeat;
+}
+
+.menu-fhbjyyghsy {
+    background: url(../img/fhbjyyghsy.png) 0 0 no-repeat;
+}
+
+
+.menu-fhbjyyghsy {
+    background: url(../img/fhbjyyghsy.png) 0 0 no-repeat;
+}
+
+.menu-lscx {
+    background: url(../img/lscx.png) 0 0 no-repeat;
+}
+
+.menu-ghyy {
+    background: url(../img/ghyy.png) 0 0 no-repeat;
+}
+
+
+.step01 {
+    height: 151px;
+    background: url(../img/step1.png) center 0 no-repeat;
+}
+
+.step02 {
+    height: 151px;
+    background: url(../img/step2.png) center 0 no-repeat;
+}
+
+.step03 {
+    height: 151px;
+    background: url(../img/step3.png) center 0 no-repeat;
+}
+
+.step04 {
+    height: 151px;
+    background: url(../img/step4.png) center 0 no-repeat;
+}
+
+
+
+.submit-btn {
+    padding: 10px 50px;
+    border: 0;
+    background: #ff8c00;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.submit-btn:active {
+    background: orange;
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message>
+    <requestInfo>
+        <HospitalID>%s</HospitalID>
+        <DepartId>SLBB1</DepartId>
+        <DoctorId>SLBBA007</DoctorId>
+        <beginTime>%s</beginTime>
+        <endTime>%s</endTime>
+    </requestInfo>
+</Message>

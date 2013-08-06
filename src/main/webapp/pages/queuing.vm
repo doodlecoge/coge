@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+
+    <style type="text/css">
+        .num {
+            color: #f00;
+            font-weight: bold;
+            font-size: 2em;
+            font-style: normal;
+            font-family: Arial;
+        }
+
+        .info {
+            line-height: 50px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .warn {
+            color: #f55;
+            line-height: 50px;
+            font-size: 24px;
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        function ts() {return new Date() - 0;}
+
+
+        function tryAccess() {
+
+            jQuery.get('async/queryQueuingPosition', {t: ts()}, function (data) {
+                if (data.success && parseInt(data.data) < 1) {
+                    location.href = "step01";
+                } else {
+                    var order = parseInt(data.data);
+                    $(".num").html(order);
+                    setTimeout(tryAccess, 5000);
+                }
+            }, "json").fail(function() { setTimeout(tryAccess, 5000); });
+
+        }
+        $(function () {
+            tryAccess();
+        });
+    </script>
+</head>
+<body>
+<div>
+    <div class="info">
+        您正在排队挂号，前面还有<i class="num"></i>位用户。
+    </div>
+
+    <div class="warn">
+        请勿刷新页面，否则将会导致重新排队！
+    </div>
+</div>
+</body>
+</html>

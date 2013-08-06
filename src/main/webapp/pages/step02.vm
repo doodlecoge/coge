@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>选择医院</title>
+    <style type="text/css">
+        .hos-img {
+            float: left;
+            margin-right: 50px;
+            margin-bottom: 10px;
+            width: 228px;
+            height: 61px;
+            border: 5px solid transparent;
+            cursor: pointer;
+        }
+
+        .hos-img.sel, .hos-img:hover {
+            border: 5px solid #8b0000;
+        }
+    </style>
+
+
+</head>
+<body>
+<div class="col-left">
+    <ul class="menu">
+        <li><a href="javascript:void(0)" class="menu-title">网上便捷预约挂号</a></li>
+        <li><a href="javascript:void(0)" class="menu-fh12320sy">&nbsp;</a></li>
+        <li><a href="index" class="menu-fhbjyyghsy">&nbsp;</a></li>
+        <li><a href="queryRegister_toQueryRegisterList" class="menu-lscx">&nbsp;</a></li>
+    </ul>
+</div>
+
+<div class="col-right">
+    <div class="step02"></div>
+    <div class="right-cont">
+        #foreach($hos in $hospitals)
+            <img class="hos-img" src="img/hos/${hos.code}.png" title="$hos.name" code="$hos.code"/>
+        #end
+        <form action="step02_post_action" id="form">
+            <input type="hidden" name="hospitalId" id="code_hid"/>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('.col-right').click(function (e) {
+        var el = $(e.target);
+        if (!el.hasClass('hos-img')) return;
+        var code = el.attr('code');
+        code = jQuery.trim(code);
+        $("#code_hid").val(code);
+        $("#form").submit();
+    });
+</script>
+</body>
+</html>
+

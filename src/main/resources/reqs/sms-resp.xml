@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='GB18030'?>
+<Ipf>
+    <header>
+        <transactionId>2011011124586</transactionId>
+        <ResponseType>SMS</ResponseType>
+        <command>MT</command>
+    </header>
+    <body>
+        <Result>0</Result>
+    </body>
+</Ipf>

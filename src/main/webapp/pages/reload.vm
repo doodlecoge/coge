@@ -1,0 +1,12 @@
+<table>
+    <tbody>
+        #foreach($key in $conf.keySet() )
+            <tr>
+                <td style="text-align: right;">$key</td>
+                <td>=&nbsp;&nbsp;</td>
+                <td>$conf.get($key)</td>
+            </tr>
+        #end
+    </tbody>
+</table>
+

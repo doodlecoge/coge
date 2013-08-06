@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message>
+    <username>sdfezzj</username>
+    <password>sdfezzj</password>
+    <requestInfo>
+        <hosId>%s</hosId>
+        <dpType>%s</dpType>
+    </requestInfo>
+</Message>

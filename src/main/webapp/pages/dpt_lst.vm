@@ -1,0 +1,65 @@
+<style type="text/css">
+    .dpt-lst {
+        margin: 0;
+        padding: 10px;
+        background: #efefef;
+
+        visibility: hidden;
+        position: absolute;
+        z-index: 2000;
+        width: 800px;
+    }
+
+    .dpt-lst li {
+        list-style: none;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        margin: 0 5px 5px 0;
+    }
+
+    .dpt-lst li a {
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+
+        text-decoration: none;
+        background: #ccc;
+        font-weight: bold;
+        padding: 5px 10px;
+
+        width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .dpt-lst li a:hover {
+        text-decoration: none;
+        background: #bbb;
+        overflow: visible;
+    }
+</style>
+
+
+<ul class="dpt-lst" t="$dptType">#foreach($d in $departs)<li><a href="javascript:void(0)" code="$d.code" title="$d.name">$d.name</a></li>#end</ul>
+
+
+<script type="text/javascript">
+    $('.dpt-lst').click(function(e) {
+        var el = $(e.target);
+        var code = el.attr('code');
+        if(!code) return;
+        var name = el.html();
+        name = jQuery.trim(name);
+
+        var sel = $('.dpt');
+        sel.attr('code', code);
+        sel.html(name);
+
+        loadSchedule();
+
+        $(".mask").css('visibility', 'hidden');
+        $(".dpt-lst").css('visibility', 'hidden');
+    });
+</script>

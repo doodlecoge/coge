@@ -1,0 +1,192 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>填写资料</title>
+    <style type="text/css">
+        .txt {
+            width: 250px;
+            outline: none;
+        }
+
+        .tb td {
+            padding: 5px 5px;
+        }
+
+        .err {
+            color: #f00;
+            font-weight: bold;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function check_form() {
+            var val = $("#agreement").is(":checked");
+
+            if (val == true) {
+                $("#agree").css('display', 'none');
+                return true;
+            } else {
+                $("#agree").css('display', '');
+                return false;
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+
+<div class="col-left">
+    <ul class="menu">
+        <li><a href="javascript:void(0)" class="menu-title">网上便捷预约挂号</a></li>
+        <li><a href="javascript:void(0)" class="menu-fh12320sy">&nbsp;</a></li>
+        <li><a href="javascript:void(0)" class="menu-fhbjyyghsy">&nbsp;</a></li>
+        <li><a href="queryRegister_toQueryRegisterList" class="menu-lscx">&nbsp;</a></li>
+
+    </ul>
+</div>
+
+<div class="col-right">
+    <div class="step01"></div>
+    <div class="right-cont">
+
+        <form action="step01_post_action" method="post">
+
+            <table class="tb">
+                <colgroup>
+                    <col style="width: 90px; text-align: right;"/>
+                    <col/>
+                    <col style="width: 250px;"/>
+                </colgroup>
+
+                <tbody>
+                <tr>
+                    <td>身份证号</td>
+                    <td>
+                        #if($id)
+                            <input type="text" class="txt" name="id" value="$id"/>
+                        #else
+                            <input type="text" class="txt" name="id" value=""/>
+                        #end
+                    </td>
+
+
+                    <td>必须输入18个字符，只允许输入数字和英文字母</td>
+                </tr>
+
+                    #if($fieldErrors.get('id'))
+                    <tr>
+                        <td></td>
+                        <td colspan="2" class="err">$fieldErrors.get('id')</td>
+                    </tr>
+                    #end
+
+
+                <tr>
+                    <td>姓　　名</td>
+                    <td>
+                        #if($name)
+                            <input type="text" class="txt" name="name" value="$name"/>
+                        #else
+                            <input type="text" class="txt" name="name" value=""/>
+                        #end
+                    </td>
+
+                    <td>请与证件上的名字一致</td>
+                </tr>
+
+                    #if($fieldErrors.get('name'))
+                    <tr>
+                        <td></td>
+                        <td colspan="2" class="err">$fieldErrors.get('name')</td>
+                    </tr>
+                    #end
+
+                    #if($fieldErrors.get('id-name'))
+                    <tr>
+                        <td></td>
+                        <td colspan="2" class="err">$fieldErrors.get('id-name')</td>
+                    </tr>
+                    #end
+
+
+                <tr>
+                    <td>手机号码</td>
+                    <td>
+                        #if($phone)
+                            <input type="text" class="txt" name="phone" value="$phone"/>
+                        #else
+                            <input type="text" class="txt" name="phone" value=""/>
+                        #end
+                    </td>
+                    <td>用于接收就诊提醒短信</td>
+                </tr>
+
+
+                    #if($fieldErrors.get('phone'))
+                    <tr>
+                        <td></td>
+                        <td colspan="2" class="err">$fieldErrors.get('phone')</td>
+                    </tr>
+                    #end
+
+
+                <tr>
+                    <td>就诊类型</td>
+                    <td>
+                        <select name="medicalType" id="medicalType">
+                            <option value="0">自　　费</option>
+                            <option value="1">市民卡</option>
+##                            <option value="2">园区医保</option>
+                        </select>
+                    </td>
+                    <td>请选择就诊医保类型，园区医保暂不支持</td>
+                </tr>
+##                <tr>
+##                    <td>市民卡号<br/>医保编号</td>
+##                    <td>
+##                        <input type="text" class="txt" id="cardId" name="cardId"/>
+##                    </td>
+##                    <td></td>
+##                </tr>
+##                <tr>
+##                    <td>验证码</td>
+##                    <td><input type="text" class="txt" name="code"/></td>
+##                    <td>看不清，点击图片换一张</td>
+##                </tr>
+                <tr>
+                    <td colspan="3">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="checkbox" id="agreement" checked="true"/>
+                        <label for="agreement">&nbsp;
+                                我已阅读并接受《苏州市个人认证系统服务协议》
+                            <a href="pages/licence.jsp" target="_blank">
+                                点击查看
+                            </a>
+                        </label>
+                    </td>
+                </tr>
+
+                <tr id="agree" style="display: none;">
+                    <td colspan="3" style="color: #f00; font-weight: bold;">
+
+                            必须同意《苏州市个人认证系统服务协议》才能进行挂号！
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="3" style="text-align: center">
+                        <input type="submit" class="submit-btn" onclick="return check_form()" value="下一步"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+

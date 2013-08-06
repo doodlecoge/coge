@@ -1,0 +1,176 @@
+<style type="text/css">
+    .round {
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        background: #ff8c00;
+
+        height: 30px;
+        line-height: 30px;
+        padding: 0 20px;
+
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+
+        text-decoration: none;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .round:hover {
+        background: #4169e1;
+    }
+
+    .mask {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        visibility: hidden;
+        z-index: 1000;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .btnSearch {
+        background: url(image/btn.gif);
+        width: 62px;
+        height: 24px;
+        border: 0;
+        cursor: pointer;
+    }
+</style>
+
+
+<div class="col-left">
+    <ul class="menu">
+        <li><a href="javascript:void(0)" class="menu-title">网上便捷预约挂号</a></li>
+        <li><a href="javascript:void(0)" class="menu-fh12320sy">&nbsp;</a></li>
+        <li><a href="index" class="menu-fhbjyyghsy">&nbsp;</a></li>
+        <li><a href="queryRegister_toQueryRegisterList" class="menu-lscx">&nbsp;</a></li>
+        <li><a href="step02" class="menu-ghyy">&nbsp;</a></li>
+    </ul>
+</div>
+
+<div class="col-right">
+    <div class="step03"></div>
+    <div class="right-cont">
+        <h1 style="color: #f22; font-weight: bold;">$hospitalName</h1>
+        <table style="width: 100%;">
+            <tr>
+                <td>
+                    <input type="radio" name="type_rad" value="2" id="zj" checked/>
+                    <label for="zj">专家挂号</label>
+                </td>
+                <td>
+                    <input type="radio" name="type_rad" value="1" id="pt"/>
+                    <label for="pt">实时挂号</label>
+                </td>
+                <td>&nbsp;|&nbsp;</td>
+                <td id="zjtd">专家姓名：<input type="text" id="docName" name="docName" style="width: 80px;"/></td>
+                <td>科室名称：<input type="text" id="dptName" name="dptName" style="width: 80px;"/></td>
+                <td><input type="button" name="button" id="button" value=" " class="btnSearch"
+                           onclick="loadWorkSchedule()"/></td>
+            </tr>
+        </table>
+
+        <div style="height: 10px;"></div>
+        <div class="schedule"></div>
+    </div>
+</div>
+
+<div class="mask t30"></div>
+
+<div id="dpt_cont"></div>
+
+<form action="step03_post_action" id="form">
+    <input type="hidden" id="rpCode" name="rpCode"/>
+    <input type="hidden" id="startTime" name="startTime"/>
+    <input type="hidden" id="endTime" name="endTime"/>
+</form>
+
+
+<script type="text/javascript">
+    function showLoading() {
+        $(".schedule").html('');
+        $(".schedule").append('<img src="img/loading.gif" /> ');
+        $(".schedule").append('加载中。。。请稍等。。。');
+    }
+
+    function check(urlinfo) {
+        showLoading();
+        $(".schedule").load(urlinfo);
+    }
+
+    function enable() {
+        $("input:radio").attr('disabled', false);
+    }
+
+    function disable() {
+        $("input:radio").attr('disabled', true);
+    }
+
+    function loadWorkSchedule() {
+        disable();
+        showLoading();
+        var val = $("input:radio:checked").val();
+        if (val == 1) {
+            $("#zjtd").hide();
+            loadDptWork();
+        } else {
+            $("#zjtd").show();
+            loadDocWork();
+        }
+    }
+
+    function loadDocWork() {
+        jQuery.post('register_loadWorkScheamDoctor', {
+            docName: $("#docName").val(),
+            deptName: $("#dptName").val()
+        },function (data) {
+            $(".schedule").html(data);
+            enable();
+        }).fail(function (data) {
+                    console.log(data);
+                    $(".schedule").html('加载失败！请重新加载页面！');
+                    enable();
+                });
+    }
+
+    function loadDptWork() {
+        jQuery.post('register_loadWorkScheamDepart', {
+            deptName: $("#dptName").val()
+        },function (data) {
+            $(".schedule").html(data);
+            enable();
+        }).fail(function (data) {
+                    $(".schedule").html('加载失败！请重新加载页面！');
+                    enable();
+                });
+    }
+
+
+    function toRegister(rpCode, startTime, endTime) {
+        $("#rpCode").val(rpCode);
+        $("#startTime").val(startTime);
+        $("#endTime").val(endTime);
+        $("#form").submit();
+    }
+
+
+    $(function () {
+        showLoading();
+
+        loadWorkSchedule();
+
+        $("input:radio").change(function () {
+            loadWorkSchedule();
+        });
+    });
+</script>
+
+
+
+
+
