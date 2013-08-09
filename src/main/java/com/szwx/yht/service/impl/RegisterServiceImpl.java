@@ -1,5 +1,6 @@
 package com.szwx.yht.service.impl;
 
+import com.hch.security.Config;
 import com.szwx.yht.bean.*;
 import com.szwx.yht.common.CommonService;
 import com.szwx.yht.dao.IRegOrderDAO;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -753,6 +755,23 @@ public class RegisterServiceImpl extends CommonService implements IRegisterServi
         return regOrder;
     }
 
+    private boolean canQuit(RegOrder regOrder) {
+        Calendar now = Calendar.getInstance();
+        Calendar reg = Calendar.getInstance();
+        reg.setTime(regOrder.getWorkDate());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+
+        String endTimeString = Config.getString("doc_next_day_reg_end_time").trim();
+        String nowTimeString = sdf.format(now.getTime());
+
+        int days = reg.get(Calendar.DAY_OF_YEAR) - now.get(Calendar.DAY_OF_YEAR);
+        if (days < 2 && nowTimeString.compareTo(endTimeString) > 0)
+            return false;
+
+        return true;
+    }
+
     public MethodCallBean updateRegister(long code) throws ServiceException {
         MethodCallBean<RegOrder> call = new MethodCallBean<RegOrder>();
         RegOrder regOrder = new RegOrder();
@@ -760,6 +779,11 @@ public class RegisterServiceImpl extends CommonService implements IRegisterServi
             regOrder = (RegOrder) commonDao.unique(DetachedCriteria.forClass(RegOrder.class).add(Restrictions.eq("code", code)));
             if (regOrder.getState() != 1) {
                 call.setMsg(false, "不能退号");
+                return call;
+            }
+
+            if(!canQuit(regOrder)) {
+                call.setMsg(false, Config.getString("doc_next_day_reg_end_time") + "后，不能退第二天的专家号");
                 return call;
             }
 

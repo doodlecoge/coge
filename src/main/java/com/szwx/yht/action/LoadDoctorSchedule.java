@@ -6,6 +6,7 @@ import com.szwx.yht.exception.ServiceException;
 import com.szwx.yht.service.IRegisterService;
 import com.szwx.yht.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.util.*;
  */
 
 @Controller("load_doc_schedule")
+@Scope("request")
 public class LoadDoctorSchedule extends DataAccessAction {
     @Autowired
     private IRegisterService registerService;
@@ -30,6 +32,10 @@ public class LoadDoctorSchedule extends DataAccessAction {
     private String docName;
     private String deptName;
     private Page page = new Page();
+
+    LoadDoctorSchedule() {
+        page = new Page();
+    }
 
     @Override
     public String exec() throws Exception {

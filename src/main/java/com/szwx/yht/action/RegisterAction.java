@@ -241,15 +241,15 @@ public class RegisterAction extends CommonAction {
         else hospitalId = "SDFY";
 
         try {
-            if (methodType == 0 && t == 1) {
-                if (deptName != null && !"".equals(deptName.trim())) {
-                    deptName = new String(deptName.getBytes("iso8859-1"), "utf-8");
-                }
+            if (deptName != null && !"".equals(deptName.trim())) {
+                deptName = new String(deptName.getBytes("iso8859-1"), "utf-8");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ActionException("RegisterAction.loadWorkScheamDepart():系统出错1" + e.getMessage(), e);
+            throw new ActionException("RegisterAction.loadWorkScheamDepart():系统出错1"
+                    + e.getMessage(), e);
         }
+
         try {
             if (methodType == 0) {
 //                wsDeparts = registerService.getWsDepartListDtos(hospital, deptName, page);
@@ -262,7 +262,10 @@ public class RegisterAction extends CommonAction {
             }
         } catch (ServiceException e) {
             e.printStackTrace();
-            throw new ActionException("RegisterAction.loadWorkScheamDepart():系统出错2" + e.getMessage(), e);
+            throw new ActionException(
+                    "RegisterAction.loadWorkScheamDepart():系统出错2"
+                            + e.getMessage(), e
+            );
         }
 
         return "loadWorkScheamDepart";
@@ -784,15 +787,23 @@ public class RegisterAction extends CommonAction {
     }
 
 
+//    public Date getWorkDate() {
+//        return workDate;
+//    }
+//
+//
+//    public void setWorkDate(Date workDate) {
+//        this.workDate = workDate;
+//    }
+
+
     public Date getWorkDate() {
         return workDate;
     }
 
-
     public void setWorkDate(Date workDate) {
         this.workDate = workDate;
     }
-
 
     public List<TimeWorkSchemaDto> getTimeWorkSchemaDtos() {
         return timeWorkSchemaDtos;

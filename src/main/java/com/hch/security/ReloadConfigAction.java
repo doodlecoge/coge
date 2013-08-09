@@ -25,15 +25,7 @@ public class ReloadConfigAction extends ActionSupport {
     public String execute() throws Exception {
         Config.reloadProperties();
 
-        conf = new HashMap<String, String>();
-
-        Field[] fields = Config.class.getDeclaredFields();
-
-        for (Field field : fields) {
-            String name = field.getName();
-            String value = field.get(name).toString();
-            conf.put(name, value);
-        }
+        conf = Config.getProperties();
 
         return SUCCESS;
     }

@@ -24,8 +24,8 @@
 
 		<link href="css/mainstyle.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
-		<script type="text/javascript"
-	            src="My97DatePicker/WdatePicker.js"></script>
+		<%--<script type="text/javascript"--%>
+	            <%--src="My97DatePicker/WdatePicker.js"></script>--%>
 		<script type="text/javascript">
 			function queryDetail(code){
 	    		window.location.href='queryRegister_getRegOrderDetail.action?regOrder.code='+code;

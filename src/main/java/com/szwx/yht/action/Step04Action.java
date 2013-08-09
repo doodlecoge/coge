@@ -50,6 +50,12 @@ public class Step04Action extends DataAccessAction {
                 return "time_error";
             }
 
+            if(!canReg7th()) {
+                errMsg = "每天" + Config.getString("doc_7th_day_reg_start_time").trim();
+                errMsg += "前不可预约第七天专家号！";
+                return "time_error";
+            }
+
             regPeople = registerService.getRegPeople(oid.toString());
         } catch (ServiceException e) {
         }
@@ -64,7 +70,7 @@ public class Step04Action extends DataAccessAction {
         Calendar reg = Calendar.getInstance();
         reg.setTime(regPipelined.getWorkSchema().getWorkDate());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String endTimeString = Config.getString("doc_next_day_reg_end_time").trim();
         String nowTimeString = sdf.format(now.getTime());
         if (nowTimeString.compareTo(endTimeString) < 0)
@@ -74,6 +80,26 @@ public class Step04Action extends DataAccessAction {
         if (days > 1) return true;
 
         return false;
+    }
+
+    private boolean canReg7th() {
+        Calendar now = Calendar.getInstance();
+        Calendar reg = Calendar.getInstance();
+        reg.setTime(regPipelined.getWorkSchema().getWorkDate());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+
+        String endTimeString = Config.getString("doc_7th_day_reg_start_time").trim();
+        String nowTimeString = sdf.format(now.getTime());
+
+        int days = reg.get(Calendar.DAY_OF_YEAR) - now.get(Calendar.DAY_OF_YEAR);
+
+        if(days < 7) return true;
+
+        if (days == 7 && nowTimeString.compareTo(endTimeString) < 0)
+            return false;
+
+        return true;
     }
 
     public RegPipelined getRegPipelined() {

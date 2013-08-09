@@ -18,7 +18,8 @@ import java.util.Map;
  * @author zhangyj
  * @date Mar 20, 2012
  */
-public  class CommonAction extends ActionSupport implements SessionAware,RequestAware,Preparable {
+public  class CommonAction extends ActionSupport
+        implements SessionAware,RequestAware,Preparable {
 
     //hch 2012/06/27
     CommonDao commonDao;

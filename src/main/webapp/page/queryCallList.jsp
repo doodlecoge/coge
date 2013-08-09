@@ -24,9 +24,9 @@
 		<link href="css/mainstyle.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="js/jquery-1.4.2.js">
 </script>
-		<script language="javascript" type="text/javascript"
-			src="./My97DatePicker/WdatePicker.js" defer="defer">
-</script>
+		<%--<script language="javascript" type="text/javascript"--%>
+			<%--src="./My97DatePicker/WdatePicker.js" defer="defer">--%>
+<%--</script>--%>
 	    <script type="text/javascript">
 	    	function player(recordId) {
 				var fileName = parent.getCallFileName(recordId);

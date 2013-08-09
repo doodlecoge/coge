@@ -59,7 +59,7 @@ public class Config {
     public static void reloadProperties() {
         Properties props = new Properties();
         try {
-            props.load(new FileInputStream(AppListener.WebRoot + "/" + "sys-config.properties"));
+            props.load(new FileInputStream(AppListener.WebRoot + "/config/" + "sys-config.properties"));
             Set<String> names = props.stringPropertyNames();
             map = new HashMap<String, String>();
             for (String name : names) {

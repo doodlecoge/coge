@@ -67,7 +67,7 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0"
            class="tableC">
         <tr>
-            <th width="11%">
+            <th width="6%">
                 电话号码
             </th>
             <th width="8%">
@@ -86,17 +86,17 @@
                 费用总计
             </th>
             <th width="6%">
-                预约时段
+                预约时间
             </th>
             <th width="8%">
-                预约号码
+                就诊序号
             </th>
             <th width="8%">
                 就诊日期
             </th>
-            <th width="8%">
-                预约人
-            </th>
+            <%--<th width="8%">--%>
+                <%--预约人--%>
+            <%--</th>--%>
             <th width="6%">
                 代挂客服
             </th>
@@ -111,7 +111,7 @@
                             ${obj.mobile }&nbsp;
                     </td>
                     <td>
-                        <a href="javascript:void(0);" onclick="queryDetail('${obj.code }')">${obj.trueName }</a>&nbsp;
+                        ${obj.trueName }
                     </td>
                     <td>
                             ${obj.hospitalName }&nbsp;
@@ -134,26 +134,22 @@
                     </td>
                     <td>
                         <fmt:formatDate value="${obj.creatTimeee}" pattern="yyyy-MM-dd"/>
-                        <br/>
-                        <span style="color: #f00;">
-                            <fmt:formatDate value="${obj.stateTime}" pattern="hh:mm"/>
-                            ~
-                            <fmt:formatDate value="${obj.endTime}" pattern="hh:mm"/>
-                            </span>
-
                     </td>
                     <td>
                             ${obj.treatOrder }&nbsp;
                     </td>
                     <td>
                         <fmt:formatDate value="${obj.workDate}" pattern="yyyy-MM-dd"/>&nbsp;
+                        <br/>
+                        <span style="color: #f00;">
+                            <fmt:formatDate value="${obj.stateTime}" pattern="HH:mm"/>~<fmt:formatDate value="${obj.endTime}" pattern="HH:mm"/>
+                            </span>
                     </td>
+                    <%--<td>--%>
+                            <%--${obj.trueName }&nbsp;--%>
+                    <%--</td>--%>
                     <td>
-                            ${obj.trueName }&nbsp;
-                    </td>
-                    <td>
-                            <%--${obj.opeateName }&nbsp;--%>
-                            # ${obj.opeateESQ.id}
+                            ${obj.opeateESQ.softPhone.phoneNo}
                     </td>
                     <td align="center">
                         <%--<s:property value="nowTime"></s:property>,--%>

@@ -6,6 +6,8 @@ import com.szwx.yht.exception.HrsExpression;
 import com.szwx.yht.exception.SecurityErrorMessage;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +21,8 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class ApplicationAction extends ActionSupport implements SessionAware {
+    private static final Logger log = LoggerFactory.getLogger(ApplicationAction.class);
+
     protected Map<String, Object> session;
 
     @Override
@@ -33,6 +37,8 @@ public abstract class ApplicationAction extends ActionSupport implements Session
         String ip = getIp();
         String sessionId = getSessionId();
         String actionName = ServletActionContext.getActionMapping().getName();
+
+        log.debug(actionName + ", " + ip + ", " + sessionId);
 
 
         try {

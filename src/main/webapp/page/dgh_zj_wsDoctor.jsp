@@ -23,7 +23,8 @@
     }
 </style>
 <script type="text/javascript">
-    function loadTimeList(node, doctorId, departId, workType, workDate, workScheamId, hospitalCode) {
+    function loadTimeList(node, doctorId, departId, workType, workDate,
+                          workScheamId, hospitalCode) {
         var autoNode = $("#pipList");
         autoNode.html('查询排班中。。。请稍等。。。');//清除之前的load内容
 
@@ -40,7 +41,7 @@
                     t: 0, methodType: 0, 'doctor.forWorkNo': doctorId,
                     'depart.departCodeNo': departId, workType: workType,
                     workDate: workDate, workScheamId: workScheamId,
-                    'hospital.hospitalCode': hospitalCode, math: Math.random()
+                    'hospital.hospitalCode': hospitalCode
                 });
 
 
@@ -135,7 +136,7 @@
                                     </c:if>
                                     <c:if test="${ws.isFull==1}">
                                         <input type="button" name="button3" id="button3" value=" "
-                                               onclick="loadTimeList(this,'${obj.doctor.forWorkNo }','${obj.depart.departCodeNo }','${ws.workType}','<fmt:formatDate value="${ws.workDate }"/>','${ws.code }','${obj.depart.hospital.hospitalCode }')"
+                                               onclick="loadTimeList(this,'${obj.doctor.forWorkNo }','${obj.depart.departCodeNo }','${ws.workType}','<fmt:formatDate value="${ws.workDate }" pattern="MM/dd/yyyy"/>','${ws.code }','${obj.depart.hospital.hospitalCode }')"
                                                class="btnUnfull"/>
                                     </c:if>
                                     <!-- 已停诊 -->
@@ -167,7 +168,7 @@
                                     </c:if>
                                     <c:if test="${ws.isFull==1}">
                                         <input type="button" name="button3" id="button3" value=" "
-                                               onclick="loadTimeList(this,'${obj.doctor.forWorkNo }','${obj.depart.departCodeNo }','${ws.workType}','<fmt:formatDate value="${ws.workDate }"/>','${ws.code }','${obj.depart.hospital.hospitalCode }')"
+                                               onclick="loadTimeList(this,'${obj.doctor.forWorkNo }','${obj.depart.departCodeNo }','${ws.workType}','<fmt:formatDate value="${ws.workDate }" pattern="MM/dd/yyyy"/>','${ws.code }','${obj.depart.hospital.hospitalCode }')"
                                                class="btnUnfull"/>
                                     </c:if>
                                     <c:if test="${ws.isFull==9}">
@@ -198,7 +199,7 @@
 </div>
 <c:if test="${hava}">
     <jsp:include page="workScheamPage.jsp">
-        <jsp:param name="actionURL" value="register_loadWorkScheamDoctor.action"/>
+        <jsp:param name="actionURL" value="load_doc_schedule"/>
     </jsp:include>
 </c:if>
 <div id="pipList" style="height: auto;width: 164px;" onmouseout="toHide()" onmouseover="toShow()"></div>

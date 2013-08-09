@@ -48,6 +48,10 @@
         <listener-class>com.szwx.yht.QueuingListener</listener-class>
     </listener>
 
+    <listener>
+        <listener-class>com.szwx.yht.AppListener</listener-class>
+    </listener>
+
 
     <context-param>
         <param-name>contextConfigLocation</param-name>

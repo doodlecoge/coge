@@ -147,7 +147,7 @@
 
         <action name="step04" class="step04_action">
             <result name="success">page/toSaveRegister.jsp</result>
-            <result name="time_error">pages/time_error.vm</result>
+            <result name="time_error" type="velocity">pages/time_error.vm</result>
             <!--<result name="success" type="velocity">pages/step04.vm</result>-->
         </action>
 

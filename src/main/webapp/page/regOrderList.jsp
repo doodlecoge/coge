@@ -23,7 +23,7 @@
     <title>预约历史查询</title>
 
     <link href="css/mainstyle.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+    <%--<script type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>--%>
     <script type="text/javascript">
 
         function loadDiv() {

@@ -1,6 +1,14 @@
-<span style="color: #f00; font-weight: bold; font-size: 36px;">
+<div style="color: #f00; font-weight: bold; font-size: 36px; text-align: center">
     $errMsg
-</span>
 
-<input name="input" type="button" value="返回"
-       class="btnNormal" onclick="javascript:history.go(-1)"/>
+
+
+</div>
+
+<br/>
+<br/>
+<div style="text-align: center;">
+    <input name="input" type="button" value="返回"
+           class="btnNormal" onclick="javascript:history.go(-1)"/>
+</div>
+

@@ -76,6 +76,7 @@
     </ul>
 </div>
 
+<fmt:setLocale value="zh_CN"/>
 
 <div class="col-right">
     <div class="step04"></div>
