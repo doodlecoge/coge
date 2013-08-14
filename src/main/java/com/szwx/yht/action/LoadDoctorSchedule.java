@@ -2,6 +2,7 @@ package com.szwx.yht.action;
 
 import com.szwx.yht.dto.WSDoctorListDto;
 import com.szwx.yht.exception.ActionException;
+import com.szwx.yht.exception.HrsExpression;
 import com.szwx.yht.exception.ServiceException;
 import com.szwx.yht.service.IRegisterService;
 import com.szwx.yht.util.Page;
@@ -43,7 +44,7 @@ public class LoadDoctorSchedule extends DataAccessAction {
 
         if (session.containsKey("hospitalId"))
             hospitalId = session.get("hospitalId").toString();
-        else hospitalId = "SDFY";
+        else throw new HrsExpression("-hid-");
 
         GregorianCalendar calendar = new GregorianCalendar();
         listDate = new ArrayList<Date>();

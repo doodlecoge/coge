@@ -20,6 +20,8 @@ public class AsyncAction extends DataAccessAction {
 //    private static int visits = 0;
     private static Calendar lastUpdateTime = Calendar.getInstance();
 
+    private String t;
+
     public void queryQueuingPosition() {
         Calendar now = Calendar.getInstance();
         if(now.getTimeInMillis() - lastUpdateTime.getTimeInMillis() > 1000 * 60) {
@@ -68,5 +70,13 @@ public class AsyncAction extends DataAccessAction {
         out.write(jobj.toString().toCharArray());
         out.flush();
         out.close();
+    }
+
+    public String getT() {
+        return t;
+    }
+
+    public void setT(String t) {
+        this.t = t;
     }
 }

@@ -11,6 +11,7 @@ public class Step02PostAction extends DataAccessAction {
     private String hospitalId;
 
     public String exec() {
+//        session.remove("hospitalId");
         session.put("hospitalId", hospitalId);
 
         return SUCCESS;

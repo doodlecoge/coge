@@ -14,6 +14,8 @@ import com.szwx.yht.service.IRegisterService;
 import com.szwx.yht.userRz.GarzServiceClient;
 import com.szwx.yht.userRz.GarzServicePortType;
 import com.szwx.yht.util.*;
+import org.apache.http.impl.cookie.DateParseException;
+import org.apache.http.impl.cookie.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,9 @@ public class RegisterAction extends CommonAction {
 
     @Autowired
     private IRegisterService registerService;
+
+
+    private static final String[] ptn = new String[] {"MM/dd/yyyy"};
 
 
     private RegPeople logPeople;//预约人信息
@@ -44,7 +49,8 @@ public class RegisterAction extends CommonAction {
     private List<WSDoctorListDto> wsDoctors;//分页查询出的排班
     private List<Date> listDate;
     private int workType; //排班上下午
-    private Date workDate; //排班日期
+//    private Date workDate; //排班日期
+    private String workDate;
     private Hospital hospital;//医院（对象）
     private List<TimeWorkSchemaDto> timeWorkSchemaDtos;//排班的分时段对象
     private List<RegPeople> regPeoples;//挂号人登陆亲友信息
@@ -283,7 +289,11 @@ public class RegisterAction extends CommonAction {
      */
     public String loadTimeList() throws Exception {
         try {
-            timeWorkSchemaDtos = registerService.getRegPipelineds(workType, workDate, doctor.getForWorkNo(), depart.getDepartCodeNo(), workScheamId, hospital.getHospitalCode());
+            Date date = DateUtils.parseDate(workDate, ptn);
+            timeWorkSchemaDtos = registerService.getRegPipelineds(
+                    workType, date, doctor.getForWorkNo(),
+                    depart.getDepartCodeNo(), workScheamId,
+                    hospital.getHospitalCode());
         } catch (ServiceException e) {
             e.printStackTrace();
             throw new ActionException("RegisterAction.loadTimeList():系统出错1" + e.getMessage(), e);
@@ -402,8 +412,9 @@ public class RegisterAction extends CommonAction {
      */
     public String getHospitalByworkDate() throws ActionException {
         try {
-            call = registerService.getHospitalByworkDate(workDate);
-        } catch (ServiceException e) {
+            Date date = DateUtils.parseDate(workDate, ptn);
+            call = registerService.getHospitalByworkDate(date);
+        } catch (Exception e) {
             e.printStackTrace();
             call.setMsg(false, "系统出错");
         }
@@ -421,7 +432,10 @@ public class RegisterAction extends CommonAction {
      */
     public String getDoctorByworkDateAndDepart() throws Exception {
         try {
-            call = registerService.getDoctorByworkDateAndDepart(workDate, depart.getDepartCodeNo());
+            Date date = DateUtils.parseDate(workDate, ptn);
+            call = registerService.getDoctorByworkDateAndDepart(
+                    date, depart.getDepartCodeNo()
+            );
         } catch (ServiceException e) {
             e.printStackTrace();
             call.setMsg(false, "系统出错");
@@ -441,7 +455,9 @@ public class RegisterAction extends CommonAction {
 
     public String getDepartByworkDateAndHopital() throws Exception {
         try {
-            call = registerService.getDepartByworkDateAndHopital(workDate, hospital.getHospitalCode());
+            Date date = DateUtils.parseDate(workDate, ptn);
+            call = registerService.getDepartByworkDateAndHopital(
+                    date, hospital.getHospitalCode());
         } catch (ServiceException e) {
             e.printStackTrace();
             call.setMsg(false, "系统出错");
@@ -797,12 +813,21 @@ public class RegisterAction extends CommonAction {
 //    }
 
 
-    public Date getWorkDate() {
-        return workDate;
+//    public Date getWorkDate() {
+//        return workDate;
+//    }
+//
+//    public void setWorkDate(Date workDate) {
+//        log.error("--2--> " + workDate);
+//        this.workDate = workDate;
+//    }
+
+    public void setWorkDate(String workDate) throws DateParseException {
+        this.workDate = workDate;
     }
 
-    public void setWorkDate(Date workDate) {
-        this.workDate = workDate;
+    public String getWorkDate() {
+        return workDate;
     }
 
     public List<TimeWorkSchemaDto> getTimeWorkSchemaDtos() {

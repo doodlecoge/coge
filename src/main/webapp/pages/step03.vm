@@ -115,6 +115,7 @@
         disable();
         showLoading();
         var val = $("input:radio:checked").val();
+
         if (val == 1) {
             $("#zjtd").hide();
             loadDptWork();
@@ -125,17 +126,6 @@
     }
 
     function loadDocWork() {
-//        jQuery.post('register_loadWorkScheamDoctor', {
-//            docName: $("#docName").val(),
-//            deptName: $("#dptName").val()
-//        },function (data) {
-//            $(".schedule").html(data);
-//            enable();
-//        }).fail(function (data) {
-//                    $(".schedule").html('加载失败！请重新加载页面！');
-//                    enable();
-//                });
-
         var xhr = jQuery.ajax({
             url: 'load_doc_schedule',
             type: 'POST',
@@ -143,7 +133,8 @@
             data: {
                 docName: $("#docName").val(),
                 deptName: $("#dptName").val()
-            }
+            },
+            cache: false
         });
 
         xhr.done(function(data) {
@@ -159,7 +150,8 @@
 
     function loadDptWork() {
         jQuery.post('register_loadWorkScheamDepart', {
-            deptName: $("#dptName").val()
+            deptName: $("#dptName").val(),
+            cache: false
         },function (data) {
             $(".schedule").html(data);
             enable();

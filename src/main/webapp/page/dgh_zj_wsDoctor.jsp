@@ -36,13 +36,33 @@
                 .css("left", wordInputOffset.left - 100 + "px");
 
         // alert(doctorId+"---"+departId+"---"+workType+"------"+workDate+"----"+workScheamId);
-        autoNode.load("register_loadTimeList",
-                {
-                    t: 0, methodType: 0, 'doctor.forWorkNo': doctorId,
-                    'depart.departCodeNo': departId, workType: workType,
-                    workDate: workDate, workScheamId: workScheamId,
-                    'hospital.hospitalCode': hospitalCode
-                });
+
+        var xhr = jQuery.ajax({
+            url: "register_loadTimeList",
+            data: {
+                t: 0, methodType: 0, 'doctor.forWorkNo': doctorId,
+                'depart.departCodeNo': departId, workType: workType,
+                workDate: workDate, workScheamId: workScheamId,
+                'hospital.hospitalCode': hospitalCode
+            }
+        });
+
+        xhr.done(function(data) {
+            autoNode.html(data)
+        });
+
+        xhr.fail(function(data) {
+            autoNode.html('加载失败！')
+        });
+
+
+//        autoNode.load("register_loadTimeList",
+//                {
+//                    t: 0, methodType: 0, 'doctor.forWorkNo': doctorId,
+//                    'depart.departCodeNo': departId, workType: workType,
+//                    workDate: workDate, workScheamId: workScheamId,
+//                    'hospital.hospitalCode': hospitalCode
+//                });
 
 
     }
@@ -82,6 +102,7 @@
 
 <div>
     <table width="100%" border="0" cellspacing="0" cellpadding="0"
+           style="font-size: 12px;"
            class="tableA">
         <tr>
             <%--<th>--%>

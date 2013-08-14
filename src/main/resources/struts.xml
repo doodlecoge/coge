@@ -173,7 +173,7 @@
         </action>
 
         <action name="acc_dny" class="acc_dny">
-            <result name="success">pages/acc_dny.vm</result>
+            <result name="success" type="velocity">pages/acc_dny.vm</result>
         </action>
 
 

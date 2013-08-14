@@ -31,12 +31,14 @@ public class AccessControl {
             info.addSession(sid);
             ipAccessList.put(ip, info);
         } else {
-            int num = ipAccessInfo.getSessionNumber();
-//            if (num > Config.MaxSessionPerIp)
-            if (num > Config.getInt("MaxSessionPerIp"))
-                throw new HrsExpression(SecurityErrorMessage.EXCEED_SESSION_PER_IP_LIMIT.name());
+            if (!sessionSet.contains(sid)) {
+                int num = ipAccessInfo.getSessionNumber();
 
-            ipAccessInfo.addSession(sid);
+                if (num > Config.getInt("MaxSessionPerIp"))
+                    throw new HrsExpression(SecurityErrorMessage.EXCEED_SESSION_PER_IP_LIMIT.name());
+
+                ipAccessInfo.addSession(sid);
+            }
         }
 
         boolean contains = sessionSet.contains(sid);
@@ -102,8 +104,6 @@ public class AccessControl {
         int len = sessionQueue.size();
 
 
-
-
         for (int i = 0; i < len; i++) {
             UserAccessInfo info = sessionQueue.get(i);
             if (info.getSessionId().equalsIgnoreCase(sid)) return i;
@@ -116,13 +116,13 @@ public class AccessControl {
         sessionSet.remove(sid);
         UserAccessInfo uai = null;
         for (UserAccessInfo info : sessionQueue) {
-            if(info.getSessionId().equals(sid)) {
+            if (info.getSessionId().equals(sid)) {
                 uai = info;
                 break;
             }
         }
 
-        if(uai == null) return;
+        if (uai == null) return;
 
         sessionQueue.remove(uai);
         ipAccessList.get(uai.getIp()).removeSession(uai.getSessionId());
