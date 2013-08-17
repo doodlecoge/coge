@@ -74,30 +74,7 @@
     function toShow() {
         $("#pipList").show();
     }
-    $(document).ready(function () {
-        $(".trtr").mouseover(
-                function () {
-                    $(this).css("background", "pink");
-                    $(this).next("tr").css("background", "pink");
-                }
-        ).mouseout(
-                function () {
-                    $(this).css("background", "#FFFFFF");
-                    $(this).next("tr").css("background", "#FFFFFF");
-                }
-        )
-        $(".trtr2").mouseover(
-                function () {
-                    $(this).css("background", "pink");
-                    $(this).prev("tr").css("background", "pink");
-                }
-        ).mouseout(
-                function () {
-                    $(this).css("background", "#FFFFFF");
-                    $(this).prev("tr").css("background", "#FFFFFF");
-                }
-        )
-    });
+
 </script>
 
 <div>
@@ -223,5 +200,7 @@
         <jsp:param name="actionURL" value="load_doc_schedule"/>
     </jsp:include>
 </c:if>
-<div id="pipList" style="height: auto;width: 164px;" onmouseout="toHide()" onmouseover="toShow()"></div>
+
+<div id="pipList" style="height: auto;width: 164px; display: none;"
+     onmouseout="toHide()" onmouseover="toShow()"></div>
 			

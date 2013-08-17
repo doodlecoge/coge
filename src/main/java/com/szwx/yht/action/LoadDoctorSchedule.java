@@ -54,16 +54,16 @@ public class LoadDoctorSchedule extends DataAccessAction {
         }
 
 
-        if (docName != null && !"".equals(docName.trim())) {
-            docName = new String(
-                    docName.getBytes("iso8859-1"), "utf-8"
-            );
-        }
-        if (deptName != null && !"".equals(deptName.trim())) {
-            deptName = new String(
-                    deptName.getBytes("iso8859-1"), "utf-8"
-            );
-        }
+//        if (docName != null && !"".equals(docName.trim())) {
+//            docName = new String(
+//                    docName.getBytes("iso8859-1"), "utf-8"
+//            );
+//        }
+//        if (deptName != null && !"".equals(deptName.trim())) {
+//            deptName = new String(
+//                    deptName.getBytes("iso8859-1"), "utf-8"
+//            );
+//        }
 
         wsDoctors = registerService.getWsDoctorListDtosimpl(
                 docName, deptName, page, hospitalId

@@ -6,9 +6,9 @@
 
 
 </script>
-<div class="page textR">
+<div style="height: 45px; line-height: 45px; text-align: right;">
 
-    <span>【${page.pageSize }】</span> 条/页 |&nbsp; 共
+    <span>${page.pageSize }</span> 条/页 |&nbsp; 共
     <span>${page.totalCount }</span> 条 | 共
     <span>${page.pageCount }</span> 页 | 第
     <span>${page.pageNum }</span> 页

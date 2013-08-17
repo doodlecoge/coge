@@ -246,15 +246,15 @@ public class RegisterAction extends CommonAction {
             hospitalId = getSession().get("hospitalId").toString();
         else hospitalId = "SDFY";
 
-        try {
-            if (deptName != null && !"".equals(deptName.trim())) {
-                deptName = new String(deptName.getBytes("iso8859-1"), "utf-8");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ActionException("RegisterAction.loadWorkScheamDepart():系统出错1"
-                    + e.getMessage(), e);
-        }
+//        try {
+//            if (deptName != null && !"".equals(deptName.trim())) {
+//                deptName = new String(deptName.getBytes("iso8859-1"), "utf-8");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new ActionException("RegisterAction.loadWorkScheamDepart():系统出错1"
+//                    + e.getMessage(), e);
+//        }
 
         try {
             if (methodType == 0) {
