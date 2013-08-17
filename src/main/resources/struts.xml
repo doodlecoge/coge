@@ -47,8 +47,6 @@
     </package>
 
     <package name="register" namespace="/" extends="parent">
-
-
         <action name="register_*" class="registerAction" method="{1}">
             <result name="callJson" type="json">
                 <param name="contentType">text/html</param>
@@ -62,16 +60,6 @@
             <result name="loadWorkScheamDepart">/page/dgh_zj_wsDepart.jsp</result>
             <result name="toTimeList">/page/timeList.jsp</result>
             <result name="toTimeListTwo">/page/timeListTwo.jsp</result>
-
-            <!--<result name="toAddFriend">/page/addFriend.jsp</result>-->
-            <!--<result name="loadQueryDepart">/page/dgh_zj_queryDepart.jsp</result>-->
-            <!--<result name="loadQueryDoctorBYTime">/page/dgh_zj_queryDoctorByTime.jsp</result>-->
-            <!--<result name="loadQueryDepartByTime">/page/dgh_zj_queryDepartByTime.jsp</result>-->
-            <!--<result name="toSaveRegister">/page/toSaveRegister.jsp</result>-->
-            <!--<result name="saveRegisterSuccess">/page/saveRegisterSuccess.jsp</result>-->
-            <!--<result name="toAddResult">/page/toAddResult.jsp</result>-->
-
-
         </action>
     </package>
 
@@ -84,18 +72,6 @@
             </result>
             <result name="regOrderList">/page/regOrderList.jsp</result>
             <result name="toRegisterList">/page/toRegisterList.jsp</result>
-
-
-            <!--<result name="toRegisterListForBlack">/page/toRegisterListForBlack.jsp</result>-->
-            <!--<result name="queryPeopleDetail">/page/queryPeopleDetail.jsp</result>-->
-            <!--<result name="lookRegOrderDetail">/page/lookRegOrderDetail.jsp</result>-->
-            <!--<result name="toQueryBlackPeople">/page/toQueryBlackPeople.jsp</result>-->
-            <!--<result name="queryBlackPeople">/page/queryBlackPeople.jsp</result>-->
-            <!--<result name="toQueryPeoples">/page/toQueryPeoples.jsp</result>-->
-            <!--<result name="queryPeoples">/page/queryPeoples.jsp</result>-->
-            <!--<result name="toQueryCallList">/page/queryCallList.jsp</result>-->
-            <!--<result name="queryCallList">/page/toQueryCallList.jsp</result>-->
-            <!--<result name="toGetReason">/page/removeBlackReason.jsp</result>-->
         </action>
     </package>
 
@@ -148,19 +124,16 @@
         <action name="step04" class="step04_action">
             <result name="success">page/toSaveRegister.jsp</result>
             <result name="time_error" type="velocity">pages/time_error.vm</result>
-            <!--<result name="success" type="velocity">pages/step04.vm</result>-->
         </action>
 
         <action name="step04_post_action" class="step04_post_action">
             <result name="success">page/saveRegisterSuccess.jsp</result>
-            <!--<result name="saveRegisterSuccess">page/saveRegisterSuccess.jsp</result>-->
             <result name="saveRegisterSuccess">pages/regrst.vm</result>
             <result name="error" type="velocity">pages/step04_post_error.vm</result>
             <result name="wait" type="redirectAction">step04</result>
         </action>
 
         <action name="step05" class="step05_action">
-            <!--<result name="success" type="velocity">pages/step05.vm</result>-->
             <result name="success">pages/saveRegisterSuccess.jsp</result>
         </action>
 
@@ -177,7 +150,6 @@
         </action>
 
 
-        <!--<action name="sc" class="security_code"></action>-->
         <action name="sc2" class="sc"></action>
 
 
