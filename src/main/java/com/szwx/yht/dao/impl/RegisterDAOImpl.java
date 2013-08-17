@@ -21,7 +21,9 @@ public class RegisterDAOImpl extends CommonDao implements IRegisterDAO {
 		String nowDate=getFormatDate(1);
 		String maxDate=getFormatDate(7);
 		StringBuffer hql=new StringBuffer();
-		hql.append("select distinct rp.workSchema.doctorExpert.forWorkNo,rp.workSchema.depart.departCodeNo,rp.workSchema.doctorExpert.name,rp.workSchema.depart.departName from RegPipelined rp, DoctorExpert d where d.forWorkNo=rp.workSchema.doctorExpert.forWorkNo ");
+		hql.append("select distinct rp.workSchema.doctorExpert.forWorkNo,rp.workSchema.depart.departCodeNo,rp.workSchema.doctorExpert.name,rp.workSchema.depart.departName " +
+                "from RegPipelined rp, DoctorExpert d " +
+                "where d.forWorkNo=rp.workSchema.doctorExpert.forWorkNo ");
 //		hql.append(" and rp.state!=1 ");
 		hql.append(" and rp.workSchema.workDate>=to_date('").append(nowDate).append("','yyyy-MM-dd')");
 		hql.append(" and rp.workSchema.workDate<=to_date('").append(maxDate).append("','yyyy-MM-dd')");

@@ -174,13 +174,7 @@ public class RegisterServiceImpl extends CommonService implements IRegisterServi
                 ws.setWorkDate(TimeUtil.formatDate3(time, "yyyy-MM-dd"));
                 ws.setWorkType(j);
 
-//				for(RegPipelined rp:rps){
-//					Integer num=commonDao.getCount(DetachedCriteria.forClass(RegOrder.class).add(Restrictions.in("state", stats)).createCriteria("regPipelined").add(Restrictions.eq("code", rp.getCode())));
-//					if((num==null&&rp.getMaxReg()>0)||(num!=null&&num.intValue()<rp.getMaxReg()&&rp.getMaxReg()>0)){
-//						ws.setIsFull(1);
-//						break;
-//					}
-//				}
+
                 if (rps.size() > 0) {
                     ws.setCode(rps.get(0).getCode());
                     if (this.pangDuanShiJian(i)) {

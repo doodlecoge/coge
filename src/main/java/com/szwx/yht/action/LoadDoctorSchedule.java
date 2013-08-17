@@ -53,21 +53,11 @@ public class LoadDoctorSchedule extends DataAccessAction {
             listDate.add(calendar.getTime());
         }
 
+//        wsDoctors = registerService.getWsDoctorListDtosimpl(
+//                docName, deptName, page, hospitalId
+//        );
 
-//        if (docName != null && !"".equals(docName.trim())) {
-//            docName = new String(
-//                    docName.getBytes("iso8859-1"), "utf-8"
-//            );
-//        }
-//        if (deptName != null && !"".equals(deptName.trim())) {
-//            deptName = new String(
-//                    deptName.getBytes("iso8859-1"), "utf-8"
-//            );
-//        }
-
-        wsDoctors = registerService.getWsDoctorListDtosimpl(
-                docName, deptName, page, hospitalId
-        );
+        wsDoctors = registerService.getWsDoctorListDtos(docName,deptName,page,hospitalId);
 
         return SUCCESS;
     }
