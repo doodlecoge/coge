@@ -185,6 +185,10 @@
             <result name="success" type="velocity">pages/reload.vm</result>
         </action>
 
+        <action name="sys" class="com.hch.security.SystemStatusAction">
+            <result name="success" type="velocity">pages/sys.vm</result>
+        </action>
+
 
     </package>
 

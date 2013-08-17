@@ -15,9 +15,9 @@ import java.util.*;
  */
 public class AccessControl {
 
-    private static final Set<String> sessionSet = new HashSet<String>();
-    private static final List<UserAccessInfo> sessionQueue = new ArrayList<UserAccessInfo>();
-    private static final Map<String, IpAccessInfo> ipAccessList = new HashMap<String, IpAccessInfo>();
+    public static final Set<String> sessionSet = new HashSet<String>();
+    public static final List<UserAccessInfo> sessionQueue = new ArrayList<UserAccessInfo>();
+    public static final Map<String, IpAccessInfo> ipAccessList = new HashMap<String, IpAccessInfo>();
 
 
     public void requestAccess(String ip, String sid) {
@@ -34,7 +34,7 @@ public class AccessControl {
             if (!sessionSet.contains(sid)) {
                 int num = ipAccessInfo.getSessionNumber();
 
-                if (num > Config.getInt("MaxSessionPerIp"))
+                if (num >= Config.getInt("MaxSessionPerIp"))
                     throw new HrsExpression(SecurityErrorMessage.EXCEED_SESSION_PER_IP_LIMIT.name());
 
                 ipAccessInfo.addSession(sid);
@@ -44,42 +44,30 @@ public class AccessControl {
         boolean contains = sessionSet.contains(sid);
 
         if (!contains) {
-//            if (sessionSet.size() > Config.QueueSize)
             if (sessionSet.size() > Config.getInt("QueueSize"))
                 throw new HrsExpression(
                         SecurityErrorMessage.QUEUING.name(),
                         null,
                         Config.getInt("QueueSize"));
-//                        Config.QueueSize);
 
             sessionQueue.add(new UserAccessInfo(ip, sid));
             sessionSet.add(sid);
         }
 
         int order = getOrder(sid);
-//        if (order >= Config.RegLimit)
         if (order >= Config.getInt("RegLimit"))
             throw new HrsExpression(
                     SecurityErrorMessage.QUEUING.name(),
                     null,
                     order - Config.getInt("RegLimit") + 1);
-//                    order - Config.RegLimit + 1);
     }
 
 
     public synchronized void removeStaleSession() {
-        System.out.println("##########");
-        for (int i = 0; i < sessionQueue.size(); i++) {
-            UserAccessInfo info = sessionQueue.get(i);
-            System.out.println("" + i + ": " + info.getSessionId() + ", " + info.getIp());
-        }
-        System.out.println("##########");
-
         int len = sessionQueue.size();
         Long now = Calendar.getInstance().getTimeInMillis();
         long ten_m_ago = now - 1000 * 60 *
                 Config.getInt("TimeoutMin");
-//                Config.TimeoutMin;
 
         while (sessionQueue.size() > 0) {
             UserAccessInfo uai = sessionQueue.get(0);
@@ -88,21 +76,10 @@ public class AccessControl {
             ipAccessList.get(uai.getIp()).removeSession(uai.getSessionId());
             sessionQueue.remove(0);
         }
-
-
-        System.out.println("==========");
-        for (int i = 0; i < sessionQueue.size(); i++) {
-            UserAccessInfo info = sessionQueue.get(i);
-            System.out.println("" + i + ": " + info.getSessionId() + ", " + info.getIp());
-        }
-        System.out.println("==========");
     }
 
     public int getOrder(String sid) {
-
-
         int len = sessionQueue.size();
-
 
         for (int i = 0; i < len; i++) {
             UserAccessInfo info = sessionQueue.get(i);
@@ -114,17 +91,24 @@ public class AccessControl {
 
     public void leave(String ip, String sid) {
         sessionSet.remove(sid);
+
         UserAccessInfo uai = null;
+
         for (UserAccessInfo info : sessionQueue) {
-            if (info.getSessionId().equals(sid)) {
-                uai = info;
-                break;
-            }
+            if (!info.getSessionId().equals(sid)) continue;
+
+            uai = info;
+            break;
         }
 
         if (uai == null) return;
 
         sessionQueue.remove(uai);
-        ipAccessList.get(uai.getIp()).removeSession(uai.getSessionId());
+
+        IpAccessInfo ipAccessInfo = ipAccessList.get(uai.getIp());
+        ipAccessInfo.removeSession(uai.getSessionId());
+        if (ipAccessInfo.getSessionNumber() == 0) {
+            ipAccessList.remove(uai.getIp());
+        }
     }
 }

@@ -17,8 +17,10 @@ import com.szwx.yht.util.SendMsgUtil;
 import com.szwx.yht.util.TimeUtil;
 import org.apache.http.impl.cookie.DateParseException;
 import org.apache.http.impl.cookie.DateUtils;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.Cookie;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.Calendar;
@@ -52,7 +54,6 @@ public class Step04PostAction extends DataAccessAction {
 
     public String exec() {
         Calendar now = Calendar.getInstance();
-//        if (now.getTimeInMillis() - lastRegTime.getTimeInMillis() < Config.RegGapSec * 1000) {
         if (now.getTimeInMillis() - lastRegTime.getTimeInMillis() < Config.getInt("RegGapSec") * 1000) {
             return "wait";
         } else lastRegTime = now;
@@ -68,7 +69,6 @@ public class Step04PostAction extends DataAccessAction {
             return "saveRegisterSuccess";
         }
 
-//        RegOrder regOrder = new RegOrder();
 
         RegPeople regPeople = null;
         try {
@@ -140,9 +140,6 @@ public class Step04PostAction extends DataAccessAction {
             call = registerService.saveRegister(regOrder);
 
 
-
-//            RegistrationQueue.getInstance().deQueue(getSessionId());
-
         } catch (ServiceException e) {
             e.printStackTrace();
             registerService.updateRegisterByError(regOrder.getYLId() + "");
@@ -163,22 +160,16 @@ public class Step04PostAction extends DataAccessAction {
         if (call.isSuccess()) {
             call.setMsg(regOrder.getCode() + "");
             accessControl.leave(getIp(), getSessionId());
-//            String shortMessage = SendMsgUtil.getShortMessage(regOrder);
-//
-//
-//            SmsRequest req = new SmsRequest();
-//            req.header = new SmsRequestHeader();
-//            req.body = new SmsRequestBody(regOrder.getRegPeople().getMobile(), shortMessage);
-//            try {
-//                SmsUtils.sendShortMessage(req);
-//            } catch (Exception e) {
-//            }
+
+
+            Cookie cookie = new Cookie(IndexAction.cookieName, "");
+            cookie.setMaxAge(0);
+            ServletActionContext.getResponse().addCookie(cookie);
         }
 
 
         return "saveRegisterSuccess";
     }
-
 
 
     public int getAge(String id) {

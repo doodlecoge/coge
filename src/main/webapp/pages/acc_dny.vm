@@ -3,19 +3,32 @@
 <head>
     <title>拒绝访问</title>
     <style type="text/css">
-        .div{
+        .div {
             text-align: center;
             font-weight: bold;
             font-size: 24px;
+            color: #f55;
+        }
+
+        .ib {
+            display: -moz-inline-stack;
+            display: inline-block;
+            zoom: 1;
+            *display: inline;
         }
     </style>
 </head>
 <body>
 <div class="div">
-    您的IP单位时间内，访问次数过多，拒绝访问！
+    同一时间同一IP只允许一个人进行挂号！
 </div>
-<div class="div">
-    请过10分钟后再次访问。
+<br/>
+<br/>
+
+<div class="div" style="color: orange; padding-left: 100px;;">
+    提示：更换浏览器可能导致此问题，您可以
+        1. 切换到之前浏览器；<br/>
+        2. 继续使用该浏览器只能在等待10分钟后进行挂号。
 </div>
 </body>
 </html>

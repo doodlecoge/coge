@@ -17,14 +17,13 @@ import java.util.Calendar;
  * To change this template use File | Settings | File Templates.
  */
 public class AsyncAction extends DataAccessAction {
-//    private static int visits = 0;
     private static Calendar lastUpdateTime = Calendar.getInstance();
 
     private String t;
 
     public void queryQueuingPosition() {
         Calendar now = Calendar.getInstance();
-        if(now.getTimeInMillis() - lastUpdateTime.getTimeInMillis() > 1000 * 60) {
+        if (now.getTimeInMillis() - lastUpdateTime.getTimeInMillis() > 1000 * 60) {
             accessControl.removeStaleSession();
             lastUpdateTime = Calendar.getInstance();
         }
@@ -37,27 +36,6 @@ public class AsyncAction extends DataAccessAction {
 
         }
 
-//        synchronized (this) {
-//            visits++;
-//        }
-//
-//        RegistrationQueue regQueue = RegistrationQueue.getInstance();
-//
-//        if(visits > regQueue.size() * 20) {
-//            regQueue.clearStaleQueuingUsers();
-//            visits = 0;
-//        }
-//
-//        int order = regQueue.getOrder(getSessionId());
-//
-//        order = order == -1 ? Global.QueueSize : order;
-//
-//        try {
-//            responseJson(true, (order + 1 - Global.RegLimit) + "");
-//        } catch (IOException e) {
-//        }
-
-        System.out.println(">>> " + order);
     }
 
     private void responseJson(boolean success, String data) throws IOException {

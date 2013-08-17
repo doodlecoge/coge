@@ -1,0 +1,14 @@
+<table>
+    #foreach($s in $sessionQueue)
+        <tr>
+            <td style="text-align: right;">$velocityCount &nbsp;</td>
+            <td style="width: 350px;">$s.sessionId</td>
+            <td style="width: 150px;">$s.ip</td>
+            #set($diff = $date.getSystemTime() - $s.time)
+            #set($ms = $diff % 1000)
+            #set($sec = $diff / 1000 % 60)
+            #set($min = $diff / 1000 / 60)
+            <td style="width: 150px;">$min:$sec.$ms</td>
+        </tr>
+    #end
+</table>

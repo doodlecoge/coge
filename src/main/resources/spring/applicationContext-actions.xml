@@ -26,7 +26,7 @@
         <property name="commonDao" ref="commonDao"></property>
     </bean>
 
-    <bean id="queuing_action" class="com.szwx.yht.action.QueuingAction"></bean>
+    <bean id="queuing_action" class="com.szwx.yht.action.IndexAction"></bean>
     <bean id="async_action" class="com.szwx.yht.action.AsyncAction" parent="dataAccessAction"></bean>
     <bean id="step01_action" class="com.szwx.yht.action.Step01Action" parent="dataAccessAction"></bean>
     <!--<bean id="step01_post_action" class="com.szwx.yht.action.Step01PostAction" parent="dataAccessAction"></bean>-->

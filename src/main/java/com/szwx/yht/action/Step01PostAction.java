@@ -27,7 +27,6 @@ import java.util.regex.Pattern;
 //public class Step01PostAction extends DataAccessAction {
 @SuppressWarnings("serial")
 @Controller("step01_post_action")
-@Scope("session")
 public class Step01PostAction extends DataAccessAction {
     private static final Logger log = LoggerFactory.getLogger(Step01PostAction.class);
     @Autowired

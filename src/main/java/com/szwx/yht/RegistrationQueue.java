@@ -28,30 +28,29 @@ public class RegistrationQueue {
 
 
     public synchronized void moveToLast(String sesstionId) {
-        if(!Ids.contains(sesstionId)) {
+        if (!Ids.contains(sesstionId)) {
             enQueue(sesstionId);
 
         } else {
             int idx = -1;
 
             for (int i = 0; i < Queue.size(); i++) {
-                if(Queue.get(i).getSessionId().equals(sesstionId)) {
+                if (Queue.get(i).getSessionId().equals(sesstionId)) {
                     idx = i;
                     break;
                 }
             }
 
-            if(idx != -1) {
-                QueuingUser qu = Queue.get(idx);
+            if (idx != -1) {
+                QueuingUser qu = Queue.remove(idx);
                 Queue.add(qu);
             }
         }
     }
 
 
-
     public synchronized QueuingUser enQueue(String sessionId) {
-        if(Queue.size() > Global.QueueSize) return null;
+        if (Queue.size() > Global.QueueSize) return null;
 
         boolean contains = Ids.contains(sessionId);
 
@@ -65,7 +64,7 @@ public class RegistrationQueue {
             return queuingUser;
         } else {
             for (QueuingUser queuingUser : Queue) {
-                if(queuingUser.getSessionId().equals(sessionId))
+                if (queuingUser.getSessionId().equals(sessionId))
                     return queuingUser;
             }
         }
