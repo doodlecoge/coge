@@ -1,9 +1,11 @@
 package com.szwx.yht.action;
 
+import com.szwx.yht.dao.HrsDao;
 import com.szwx.yht.dto.WSDoctorListDto;
 import com.szwx.yht.exception.ActionException;
 import com.szwx.yht.exception.HrsExpression;
 import com.szwx.yht.exception.ServiceException;
+import com.szwx.yht.model.DocWS;
 import com.szwx.yht.service.IRegisterService;
 import com.szwx.yht.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class LoadDoctorSchedule extends DataAccessAction {
     @Autowired
     private IRegisterService registerService;
 
+    @Autowired
+    private HrsDao hrsDao;
+
     private List<WSDoctorListDto> wsDoctors;
     private List<Date> listDate;
     private String docName;
@@ -45,6 +50,12 @@ public class LoadDoctorSchedule extends DataAccessAction {
         if (session.containsKey("hospitalId"))
             hospitalId = session.get("hospitalId").toString();
         else throw new HrsExpression("-hid-");
+
+//        int num = hrsDao.getRecordCountBeforePageIndex(hospitalId, page.getPageNum());
+//        List<DocWS> doctorWS = hrsDao.getDoctorWS(hospitalId, page.getPageNum(), page.getPageSize());
+//
+//
+//        System.out.println(num);
 
         GregorianCalendar calendar = new GregorianCalendar();
         listDate = new ArrayList<Date>();
