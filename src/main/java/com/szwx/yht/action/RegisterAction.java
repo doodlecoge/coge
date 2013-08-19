@@ -31,7 +31,7 @@ public class RegisterAction extends CommonAction {
     private IRegisterService registerService;
 
 
-    private static final String[] ptn = new String[] {"MM/dd/yyyy"};
+    private static final String[] ptn = new String[]{"MM/dd/yyyy"};
 
 
     private RegPeople logPeople;//预约人信息
@@ -49,7 +49,7 @@ public class RegisterAction extends CommonAction {
     private List<WSDoctorListDto> wsDoctors;//分页查询出的排班
     private List<Date> listDate;
     private int workType; //排班上下午
-//    private Date workDate; //排班日期
+    //    private Date workDate; //排班日期
     private String workDate;
     private Hospital hospital;//医院（对象）
     private List<TimeWorkSchemaDto> timeWorkSchemaDtos;//排班的分时段对象
@@ -248,14 +248,10 @@ public class RegisterAction extends CommonAction {
 
 
         try {
-            if (methodType == 0) {
-                Hospital hos = new Hospital();
-                hos.setHospitalCode(hospitalId);
-                wsDeparts = registerService.getWsDepartListDtos(hos, deptName, page);
-            } else {
-                wsDeparts = registerService.getWsDepartListDtosByDoctor(depart, page);
-                throw new ActionException("--2--");
-            }
+            Hospital hos = new Hospital();
+            hos.setHospitalCode(hospitalId);
+            wsDeparts = registerService.getWsDepartListDtos(hos, deptName, page);
+
         } catch (ServiceException e) {
             e.printStackTrace();
             throw new ActionException(

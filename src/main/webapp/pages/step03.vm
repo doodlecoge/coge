@@ -98,9 +98,13 @@
         $(".schedule").append('加载中。。。请稍等。。。');
     }
 
-    function check(urlinfo) {
-        showLoading();
-        $(".schedule").load(urlinfo);
+//    function check(urlinfo) {
+//        showLoading();
+//        $(".schedule").load(urlinfo);
+//    }
+
+    function check(page) {
+        loadWorkSchedule(page);
     }
 
     function enable() {
@@ -111,29 +115,35 @@
         $("input:radio").attr('disabled', true);
     }
 
-    function loadWorkSchedule() {
+    function loadWorkSchedule(page) {
         disable();
         showLoading();
         var val = $("input:radio:checked").val();
 
         if (val == 1) {
             $("#zjtd").hide();
-            loadDptWork();
+            loadDptWork(page);
         } else {
             $("#zjtd").show();
-            loadDocWork();
+            loadDocWork(page);
         }
     }
 
-    function loadDocWork() {
+    function loadDocWork(page) {
+        var d = {
+            docName: $("#docName").val(),
+            deptName: $("#dptName").val()
+        };
+
+        if(!!page) {
+            d['page.pageNum'] = page;
+        }
+
         var xhr = jQuery.ajax({
             url: 'load_doc_schedule',
             type: 'POST',
             dataType: 'html',
-            data: {
-                docName: $("#docName").val(),
-                deptName: $("#dptName").val()
-            },
+            data: d,
             cache: false
         });
 
@@ -148,17 +158,46 @@
         });
     }
 
-    function loadDptWork() {
-        jQuery.post('register_loadWorkScheamDepart', {
-            deptName: $("#dptName").val(),
+    function loadDptWork(page) {
+        var d = {
+            deptName: $("#dptName").val()
+        };
+
+        if(!!page) {
+            d['page.pageNum'] = page;
+        }
+
+        var xhr = jQuery.ajax({
+            url: 'register_loadWorkScheamDepart',
+            type: 'POST',
+            dataType: 'html',
+            data: d,
             cache: false
-        },function (data) {
+        });
+
+        xhr.done(function(data) {
             $(".schedule").html(data);
             enable();
-        }).fail(function (data) {
-                    $(".schedule").html('加载失败！请重新加载页面！');
-                    enable();
-                });
+        });
+
+        xhr.fail(function(data) {
+            $(".schedule").html('加载失败！请重新加载页面！');
+            enable();
+        });
+
+
+
+
+//        jQuery.post('register_loadWorkScheamDepart', {
+//            deptName: $("#dptName").val(),
+//            cache: false
+//        },function (data) {
+//            $(".schedule").html(data);
+//            enable();
+//        }).fail(function (data) {
+//                    $(".schedule").html('加载失败！请重新加载页面！');
+//                    enable();
+//                });
     }
 
 

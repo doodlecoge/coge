@@ -56,10 +56,10 @@
             <result name="toRegister">/page/dgh_zj_main.jsp</result>
             <result name="loadQueryDoctor">/page/dgh_zj_queryDoctor.jsp</result>
 
-            <result name="loadWorkScheamDoctor">/page/dgh_zj_wsDoctor.jsp</result>
-            <result name="loadWorkScheamDepart">/page/dgh_zj_wsDepart.jsp</result>
-            <result name="toTimeList">/page/timeList.jsp</result>
-            <result name="toTimeListTwo">/page/timeListTwo.jsp</result>
+            <result name="loadWorkScheamDoctor">/pages/dgh_zj_wsDoctor.jsp</result>
+            <result name="loadWorkScheamDepart">/pages/dgh_zj_wsDepart.jsp</result>
+            <result name="toTimeList">/pages/timeList.jsp</result>
+            <result name="toTimeListTwo">/pages/timeListTwo.jsp</result>
         </action>
     </package>
 
@@ -166,7 +166,7 @@
 
     <package name="aaa" namespace="/" extends="parent">
         <action name="load_doc_schedule" class="load_doc_schedule">
-            <result name="success">/page/dgh_zj_wsDoctor.jsp</result>
+            <result name="success">/pages/dgh_zj_wsDoctor.jsp</result>
         </action>
     </package>
 

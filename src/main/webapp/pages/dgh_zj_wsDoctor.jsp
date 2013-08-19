@@ -196,7 +196,7 @@
     </table>
 </div>
 <c:if test="${hava}">
-    <jsp:include page="workScheamPage.jsp">
+    <jsp:include page="../page/workScheamPage.jsp">
         <jsp:param name="actionURL" value="load_doc_schedule"/>
     </jsp:include>
 </c:if>

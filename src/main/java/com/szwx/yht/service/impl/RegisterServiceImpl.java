@@ -754,7 +754,7 @@ public class RegisterServiceImpl extends CommonService implements IRegisterServi
         Calendar reg = Calendar.getInstance();
         reg.setTime(regOrder.getWorkDate());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
         String endTimeString = Config.getString("doc_next_day_reg_end_time").trim();
         String nowTimeString = sdf.format(now.getTime());
@@ -776,7 +776,7 @@ public class RegisterServiceImpl extends CommonService implements IRegisterServi
                 return call;
             }
 
-            if(!canQuit(regOrder)) {
+            if (!canQuit(regOrder)) {
                 call.setMsg(false, Config.getString("doc_next_day_reg_end_time") + "后，不能退第二天的专家号");
                 return call;
             }

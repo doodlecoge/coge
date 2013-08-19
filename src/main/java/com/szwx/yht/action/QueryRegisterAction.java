@@ -259,13 +259,13 @@ public class QueryRegisterAction extends CommonAction {
             e.printStackTrace();
             call.setMsg(false, "系统出错");
         }
-        try {
-            if (call.isSuccess()) {
-                RegOrder orderMsg = registerService.getRegOrder(regOrder.getCode());
-//                SendMsgUtil.sendPhoneMsgToquit(orderMsg);
-            }
-        } catch (Exception ex) {
-        }
+//        try {
+//            if (call.isSuccess()) {
+//                RegOrder orderMsg = registerService.getRegOrder(regOrder.getCode());
+////                SendMsgUtil.sendPhoneMsgToquit(orderMsg);
+//            }
+//        } catch (Exception ex) {
+//        }
         return "callJson";
     }
 

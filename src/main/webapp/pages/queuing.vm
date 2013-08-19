@@ -26,12 +26,20 @@
         }
     </style>
     <script type="text/javascript">
-        function ts() {return new Date() - 0;}
+        function ts() {
+            return new Date() - 0;
+        }
+
 
 
         function tryAccess() {
+            var xhr = jQuery.ajax({
+                url: 'async/queryQueuingPosition',
+                cache: false,
+                dataType: "json"
+            });
 
-            jQuery.get('async/queryQueuingPosition', {t: ts()}, function (data) {
+            xhr.done(function(data) {
                 if (data.success && parseInt(data.data) < 1) {
                     location.href = "step01";
                 } else {
@@ -39,7 +47,23 @@
                     $(".num").html(order);
                     setTimeout(tryAccess, 5000);
                 }
-            }, "json").fail(function() { setTimeout(tryAccess, 5000); });
+            });
+
+            xhr.fail(function(data) {
+                $("#loading").html('加载失败！');
+            });
+
+//            jQuery.get('async/queryQueuingPosition', {t: ts()},function (data) {
+//                if (data.success && parseInt(data.data) < 1) {
+//                    location.href = "step01";
+//                } else {
+//                    var order = parseInt(data.data);
+//                    $(".num").html(order);
+//                    setTimeout(tryAccess, 5000);
+//                }
+//            }, "json").fail(function () {
+//                        setTimeout(tryAccess, 5000);
+//                    });
 
         }
         $(function () {
@@ -49,13 +73,17 @@
 </head>
 <body>
 <div>
-    <div class="info">
-        您正在排队挂号，前面还有<i class="num"></i>位用户。
-    </div>
+    <div id="box" style="display: none;">
+        <div class="info">
+            您正在排队挂号，前面还有<i class="num"></i>位用户。
+        </div>
 
-    <div class="warn">
-        请勿刷新页面，否则将会导致重新排队！
+        <div class="warn">
+            请勿刷新页面，否则将会导致重新排队！
+        </div>
     </div>
+    <div id="loading" style="text-align: center;">
+        <h3>加载中。。。请稍后</div></h3>
 </div>
 </body>
 </html>
