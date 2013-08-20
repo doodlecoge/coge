@@ -70,6 +70,16 @@ public class RegisterAction extends CommonAction {
 
     private Integer medicalType;
 
+    private int regType;
+
+    public int getRegType() {
+        return regType;
+    }
+
+    public void setRegType(int regType) {
+        this.regType = regType;
+    }
+
     public String toRegister() throws ActionException {
         try {
 //			logPeople=new RegPeople();
@@ -242,6 +252,8 @@ public class RegisterAction extends CommonAction {
      * @date:Jul 15, 2012 4:23:00 PM
      */
     public String loadWorkScheamDepart() throws ActionException {
+        session.put("regType", regType);
+
         if (getSession().containsKey("hospitalId"))
             hospitalId = getSession().get("hospitalId").toString();
         else hospitalId = "SDFY";

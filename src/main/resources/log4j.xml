@@ -52,7 +52,7 @@
     <!--</logger>-->
 
     <root>
-        <priority value ="TRACE" />
+        <priority value ="WARN" />
         <appender-ref ref="FA"/>
         <appender-ref ref="console"/>
     </root>

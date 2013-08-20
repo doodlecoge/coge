@@ -88,6 +88,7 @@
     <input type="hidden" id="rpCode" name="rpCode"/>
     <input type="hidden" id="startTime" name="startTime"/>
     <input type="hidden" id="endTime" name="endTime"/>
+    <input type="hidden" id="type" name="type"/>
 </form>
 
 
@@ -132,7 +133,8 @@
     function loadDocWork(page) {
         var d = {
             docName: $("#docName").val(),
-            deptName: $("#dptName").val()
+            deptName: $("#dptName").val(),
+            regType: $("input:radio:checked").val()
         };
 
         if(!!page) {
@@ -160,7 +162,8 @@
 
     function loadDptWork(page) {
         var d = {
-            deptName: $("#dptName").val()
+            deptName: $("#dptName").val(),
+            regType: $("input:radio:checked").val()
         };
 
         if(!!page) {
@@ -202,9 +205,12 @@
 
 
     function toRegister(rpCode, startTime, endTime) {
+        var type = $("input:radio:checked").val();
+
         $("#rpCode").val(rpCode);
         $("#startTime").val(startTime);
         $("#endTime").val(endTime);
+        $("type").val(type);
         $("#form").submit();
     }
 
@@ -215,7 +221,7 @@
         loadWorkSchedule();
 
         $("input:radio").change(function () {
-            loadWorkSchedule();
+            loadWorkSchedule(1);
         });
     });
 </script>

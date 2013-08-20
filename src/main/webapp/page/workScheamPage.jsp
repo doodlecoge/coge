@@ -21,13 +21,13 @@
             <a class="changePic" href="javascript:void(0);"
                onclick="check(${page.pageNum+1})">下一页</a> |
             <a class="changePic"
-               onclick="check('${pageContext.request.contextPath}/${param.actionURL}?page.pageNum=${page.pageCount}${param.param}&way=0&t=<%=Calendar.getInstance().getTimeInMillis()%>')"
+               onclick="check(${page.pageCount})"
                href="javascript:void(0);">末页</a>]
         </c:if>
 
         <c:if test="${page.pageNum>1 and page.pageNum<page.pageCount}">
             [<a class="changePic"
-            onclick="check('${pageContext.request.contextPath}/${param.actionURL}?page.pageNum=1${param.param}&way=0&t=<%=Calendar.getInstance().getTimeInMillis()%>')"
+            onclick="check(1)"
             href="javascript:void(0);">首页</a> |
             <a class="changePic"
                onclick="check(${page.pageNum-1})"
@@ -36,13 +36,13 @@
                onclick="check(${page.pageNum+1})"
                href="javascript:void(0);">下一页</a> |
             <a class="changePic"
-               onclick="check('${pageContext.request.contextPath}/${param.actionURL}?page.pageNum=${page.pageCount }${param.param}&way=0&t=<%=Calendar.getInstance().getTimeInMillis()%>')"
+               onclick="check(${page.pageCount})"
                href="javascript:void(0);">末页</a>]
         </c:if>
 
         <c:if test="${page.pageNum==page.pageCount}">
             [<a class="changePic"
-            onclick="check('${pageContext.request.contextPath}/${param.actionURL}?page.pageNum=1${param.param}&way=0&t=<%=Calendar.getInstance().getTimeInMillis()%>')"
+            onclick="check(1)"
             href="javascript:void(0);">首页</a> |
             <a class="changePic"
                onclick="check(${page.pageNum-1})"

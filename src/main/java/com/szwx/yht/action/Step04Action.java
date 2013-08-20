@@ -41,28 +41,63 @@ public class Step04Action extends DataAccessAction {
         Object rpcode = session.get("rpCode");
         Object oid = session.get("id");
         long rpid = Long.parseLong(rpcode.toString());
-        try {
-            regPipelined = registerService.getRegPiplinedById(rpid);
+        int type = Integer.valueOf(session.get("regType").toString());
 
-            if (!canReg()) {
-                errMsg = "每天" + Config.getString("doc_next_day_reg_end_time").trim();
-                errMsg += "过后不可预约第二天专家号！";
-                return "time_error";
+
+        if (type == 2) {
+            try {
+                regPipelined = registerService.getRegPiplinedById(rpid);
+
+                if (!canReg()) {
+                    errMsg = "每天" + Config.getString("doc_next_day_reg_end_time").trim();
+                    errMsg += "过后不可预约第二天专家号！";
+                    return "time_error";
+                }
+
+                if (!canReg7th()) {
+                    errMsg = "每天" + Config.getString("doc_7th_day_reg_start_time").trim();
+                    errMsg += "前不可预约第七天专家号！";
+                    return "time_error";
+                }
+
+                regPeople = registerService.getRegPeople(oid.toString());
+            } catch (ServiceException e) {
             }
+        } else if (type == 1) {
+            if (!canRegRt()) {
+                errMsg = "不在预约时间段，无法预约。可预约时间段为：" + Config.getString("real_time_reg_time_window").trim() + "。";
 
-            if(!canReg7th()) {
-                errMsg = "每天" + Config.getString("doc_7th_day_reg_start_time").trim();
-                errMsg += "前不可预约第七天专家号！";
                 return "time_error";
+            } else {
+                try {
+                    regPipelined = registerService.getRegPiplinedById(rpid);
+                    regPeople = registerService.getRegPeople(oid.toString());
+                } catch (ServiceException e) {
+                }
             }
-
-            regPeople = registerService.getRegPeople(oid.toString());
-        } catch (ServiceException e) {
         }
 
-        Date date = regPipelined.getWorkSchema().getWorkDate();
 
         return SUCCESS;
+    }
+
+    private boolean canRegRt() {
+        String real_time_reg_time_window = Config.getString("real_time_reg_time_window").trim();
+        String[] wins = real_time_reg_time_window.split(",");
+
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String nowStr = sdf.format(now.getTime());
+
+        for (String win : wins) {
+            String[] ends = win.split("-");
+
+            if ((nowStr.compareTo(ends[0]) > 0 && nowStr.compareTo(ends[1]) < 0)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private boolean canReg() {
@@ -94,7 +129,7 @@ public class Step04Action extends DataAccessAction {
 
         int days = reg.get(Calendar.DAY_OF_YEAR) - now.get(Calendar.DAY_OF_YEAR);
 
-        if(days < 7) return true;
+        if (days < 7) return true;
 
         if (days == 7 && nowTimeString.compareTo(endTimeString) < 0)
             return false;

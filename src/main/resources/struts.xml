@@ -166,7 +166,7 @@
 
     <package name="aaa" namespace="/" extends="parent">
         <action name="load_doc_schedule" class="load_doc_schedule">
-            <result name="success">pages/doc_works.jsp</result>
+            <result name="success">pages/dgh_zj_wsDoctor.jsp</result>
         </action>
     </package>
             <!--<result name="success">/pages/dgh_zj_wsDoctor.jsp</result>-->
