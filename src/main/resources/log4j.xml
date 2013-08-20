@@ -33,23 +33,23 @@
         </layout>
     </appender>
 
-    <logger name="velocity_log">
-        <level value="WARN"></level>
-        <appender-ref ref="FA"></appender-ref>
-    </logger>
+    <!--<logger name="velocity_log">-->
+        <!--<level value="WARN"></level>-->
+        <!--<appender-ref ref="FA"></appender-ref>-->
+    <!--</logger>-->
 
-    <logger name="org.apache.http">
-        <level value="ERROR"></level>
-        <appender-ref ref="FA"></appender-ref>
-    </logger>
+    <!--<logger name="org.apache.http">-->
+        <!--<level value="ERROR"></level>-->
+        <!--<appender-ref ref="FA"></appender-ref>-->
+    <!--</logger>-->
 
-    <logger name="org.springframework">
-        <level value="ERROR"></level>
-    </logger>
+    <!--<logger name="org.springframework">-->
+        <!--<level value="ERROR"></level>-->
+    <!--</logger>-->
 
-    <logger name="com.opensymphony">
-        <level value="ERROR"></level>
-    </logger>
+    <!--<logger name="com.opensymphony">-->
+        <!--<level value="ERROR"></level>-->
+    <!--</logger>-->
 
     <root>
         <priority value ="TRACE" />

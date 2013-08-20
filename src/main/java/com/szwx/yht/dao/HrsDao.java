@@ -82,7 +82,7 @@ public class HrsDao extends CommonDao {
         String endDateString = DateUtils.format(now.getTime(), "yyyy-MM-dd");
 
         String sql = "" +
-                "select a.regCode, b.docName, b.docRank, b.dptName, a.dptNo, a.dateTime from " +
+                "select a.regCode, b.worktype, b.docNo, b.docName, b.docRank, b.dptName, a.dptNo, a.dateTime from " +
                 "    (" +
                 "    select rp.code regCode, ws.depart dptNo, ws.doctor_expert docNo, ws.WORK_DATE dateTime" +
                 "    from" +
@@ -97,7 +97,7 @@ public class HrsDao extends CommonDao {
                 "    from " +
                 "        (" +
                 "        select " +
-                "          dpt.depart_code_no dptNo, d.for_work_no docNo, d.name docName, dpt.DEPART_NAME dptName, d.DOCTOR_RANK docRank, rownum rn" +
+                "          rp.work_type worktype, dpt.depart_code_no dptNo, d.for_work_no docNo, d.name docName, dpt.DEPART_NAME dptName, d.DOCTOR_RANK docRank, rownum rn" +
                 "        from" +
                 "            YHT_REG_PIPELINED rp," +
                 "            YHT_DOCTOR_EXPERT de," +

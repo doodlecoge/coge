@@ -1,5 +1,8 @@
 package com.szwx.yht.model;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
@@ -8,7 +11,8 @@ package com.szwx.yht.model;
  * To change this template use File | Settings | File Templates.
  */
 public class DocWS {
-        private String REGCODE;
+    private BigDecimal REGCODE;
+    private BigDecimal WORKTYPE;
 
     private String DOCNO;
     private String DOCNAME;
@@ -17,13 +21,13 @@ public class DocWS {
     private String DPTNAME;
     private String DPTNO;
 
-    private String DATETIME;
+    private Date DATETIME;
 
-    public String getREGCODE() {
+    public BigDecimal getREGCODE() {
         return REGCODE;
     }
 
-    public void setREGCODE(String REGCODE) {
+    public void setREGCODE(BigDecimal REGCODE) {
         this.REGCODE = REGCODE;
     }
 
@@ -67,14 +71,21 @@ public class DocWS {
         this.DPTNO = DPTNO;
     }
 
-    public String getDATETIME() {
+    public Date getDATETIME() {
         return DATETIME;
     }
 
-    public void setDATETIME(String DATETIME) {
+    public void setDATETIME(Date DATETIME) {
         this.DATETIME = DATETIME;
     }
 
+    public BigDecimal getWORKTYPE() {
+        return WORKTYPE;
+    }
+
+    public void setWORKTYPE(BigDecimal WORKTYPE) {
+        this.WORKTYPE = WORKTYPE;
+    }
 
     //    private String regCode;
 //
