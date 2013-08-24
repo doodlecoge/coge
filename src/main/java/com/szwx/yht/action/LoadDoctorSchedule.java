@@ -33,6 +33,11 @@ public class LoadDoctorSchedule extends DataAccessAction {
     private String docName;
     private String deptName;
     private Page page = new Page();
+    private String regType;
+
+    public void setRegType(String regType) {
+        this.regType = regType;
+    }
 
     LoadDoctorSchedule() {
         page = new Page();
@@ -40,13 +45,15 @@ public class LoadDoctorSchedule extends DataAccessAction {
 
     @Override
     public String exec() throws Exception {
+        session.put("regType", regType);
         String hospitalId = null;
 
         if (session.containsKey("hospitalId"))
             hospitalId = session.get("hospitalId").toString();
         else throw new HrsExpression("-hid-");
 
-        GregorianCalendar calendar = new GregorianCalendar();
+        //GregorianCalendar calendar = new GregorianCalendar();
+        Calendar calendar = Calendar.getInstance();
         listDate = new ArrayList<Date>();
         for (int i = 0; i < 7; i++) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);

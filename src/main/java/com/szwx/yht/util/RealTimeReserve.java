@@ -1,5 +1,6 @@
 package com.szwx.yht.util;
 
+import com.hch.security.Config;
 import com.szwx.yht.bean.RegOrder;
 import com.szwx.yht.bean.WSDepart;
 import com.szwx.yht.bean.WSDoctor;
@@ -10,6 +11,7 @@ import org.jdom.input.SAXBuilder;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class RealTimeReserve {
@@ -349,7 +351,14 @@ public class RealTimeReserve {
 					Calendar cal=Calendar.getInstance();
 //					System.out.println(cal.getTime().getHours());
 //					System.out.println(TimeUtil.formatDate1(cal.getTime(), "HH")+"----"+cal.get(Calendar.HOUR_OF_DAY));
-					if(cal.get(Calendar.HOUR_OF_DAY)>=15){
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                    String timeStr = sdf.format(cal.getTime());
+
+                    String doc_next_day_reg_end_time = Config.getString("doc_next_day_reg_end_time").trim();
+
+                    if(timeStr.compareTo(doc_next_day_reg_end_time) > 0){
+//					if(cal.get(Calendar.HOUR_OF_DAY)>=15){
 						cal.add(Calendar.DATE, 1);
 						if(TimeUtil.formatDate2(workDate, "yyyy-MM-dd").equals(TimeUtil.formatDate2(cal.getTime(), "yyyy-MM-dd"))){
 							return 1;

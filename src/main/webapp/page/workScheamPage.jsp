@@ -43,7 +43,7 @@
         <c:if test="${page.pageNum==page.pageCount}">
             [<a class="changePic"
             onclick="check(1)"
-            href="javascript:void(0);">首页</a> |
+            h   ref="javascript:void(0);">首页</a> |
             <a class="changePic"
                onclick="check(${page.pageNum-1})"
                href="javascript:void(0);">上一页</a> |

@@ -98,10 +98,10 @@
                 <th>
                     <div>
                         <fmt:setLocale value="zh_CN"/>
-                        <fmt:formatDate value="${obj}" pattern="EEE" timeZone="CST"/>
+                        <fmt:formatDate value="${obj}" pattern="EEE" timeZone="GMT"/>
                     </div>
                     <div class="fontRed1">
-                        <fmt:formatDate pattern="yyyy-MM-dd" value="${obj}" timeZone="CST"/>
+                        <fmt:formatDate pattern="yyyy-MM-dd" value="${obj}" timeZone="GMT"/>
                     </div>
                 </th>
             </c:forEach>

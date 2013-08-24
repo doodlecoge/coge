@@ -760,7 +760,8 @@ public class RegisterServiceImpl extends CommonService implements IRegisterServi
         String nowTimeString = sdf.format(now.getTime());
 
         int days = reg.get(Calendar.DAY_OF_YEAR) - now.get(Calendar.DAY_OF_YEAR);
-        if (days < 2 && nowTimeString.compareTo(endTimeString) > 0)
+
+        if (days < 1 || (days == 1 && nowTimeString.compareTo(endTimeString) > 0))
             return false;
 
         return true;
