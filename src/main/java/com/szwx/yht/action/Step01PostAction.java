@@ -32,11 +32,20 @@ public class Step01PostAction extends DataAccessAction {
     @Autowired
     private IRegisterService registerService;
 
-    private String code;
-    private String name;
+    private static final Pattern phonePtn = Pattern.compile(
+            "^1((3[4-9]|5[012789]|8[78])|18[09]|(3[0-2]|5[56]|8[56])|[35]3)\\d{8}$"
+    );
+
     private String id;
+    private String name;
     private String phone;
+    private String newPhone;
+    private String checkCode;
     private int medicalType;
+    private boolean chgPhone;
+
+
+    private int ttt; // 0: exists, 1: exists & change phone, 2: not exists
 
     public String execute() {
         log.error(System.currentTimeMillis() + "-a");
@@ -45,10 +54,14 @@ public class Step01PostAction extends DataAccessAction {
         session.put("name", name);
         session.put("phone", phone);
 
+        if(chgPhone) session.put("phone", newPhone);
+
+
         try {
             log.error(System.currentTimeMillis() + "-b");
             RegPeople regPeople = registerService.getRegPeople(id);
             log.error(System.currentTimeMillis() + "-c");
+
             if (regPeople == null) {
                 regPeople = new RegPeople();
                 regPeople.setIdentityCard(id);
@@ -84,33 +97,44 @@ public class Step01PostAction extends DataAccessAction {
 
 
     public void validate() {
+        if(id == null) id = "";
+        if(name == null) name = "";
+        if(phone == null) phone = "";
+        if(newPhone == null) newPhone = "";
+        if(checkCode == null) checkCode = "";
+
+
         clearActionErrors();
         clearErrors();
         RegPeople regPeople = null;
         long num = 0;
+
         try {
             regPeople = registerService.getRegPeople(id.toString());
-            if(regPeople != null) num = registerService.queryQuitNum(regPeople.getIdentityCard()).getState();
+            if (regPeople != null) num = registerService.queryQuitNum(regPeople.getIdentityCard()).getState();
         } catch (ServiceException e) {
             log.error("", e);
         }
 
-        if(num > 1) {
+        Object validation_code = session.get("validation_code");
+
+        if(regPeople == null) {
+            ttt = 2;
+        } else {
+            if(chgPhone) {
+                ttt = 1;
+            } else ttt = 0;
+        }
+
+        if ((regPeople == null || chgPhone) && !checkCode.equals(validation_code)) {
+            addFieldError("vc", "手机短信验证码不正确");
+        }
+
+        if (num > 1) {
             addFieldError("id", "您本周爽约" + num + "次，被计入黑名单，不能预约挂号！");
         }
 
-        if (id == null || "".equals(id)) {
-            addFieldError("id", "身份证号码必填");
-        }
-
-        if (name == null || "".equals(name)) {
-            addFieldError("name", "姓名必填");
-        }
-
-//        if (phone == null || "".equals(phone)) {
-//            addFieldError("phone", "手机必填");
-//        }
-
+        // 身份证
         Pattern ptn = Pattern.compile("^(\\d{15}|\\d{18}|\\d{17}[xX])$");
         Matcher matcher = ptn.matcher(id);
 
@@ -118,27 +142,32 @@ public class Step01PostAction extends DataAccessAction {
             addFieldError("id", "身份证号码格式不正确");
         }
 
+        // 姓名
+        if("".equals(name)) {
+            addFieldError("name", "姓名不能为空");
+        }
         ptn = Pattern.compile("[^\\u4e00-\\u9fbb]");
         matcher = ptn.matcher(name);
         if (matcher.find()) {
             addFieldError("name", "姓名必须为中文");
         }
 
-        try {
-            regPeople = registerService.getRegPeople(id);
-        } catch (ServiceException e) {
-            log.error("", e);
+//        try {
+//            regPeople = registerService.getRegPeople(id);
+//        } catch (ServiceException e) {
+//            log.error("", e);
+//        }
+
+
+        // 手机
+        matcher = phonePtn.matcher(phone);
+        if (!matcher.find()) {
+            addFieldError("phone", "手机号码格式不正确");
         }
 
-
-        if (phone == null || "".equals(phone)) {
-            if (regPeople == null) addFieldError("phone", "手机必填");
-        } else {
-            ptn = Pattern.compile("^1((3[4-9]|5[012789]|8[78])|18[09]|(3[0-2]|5[56]|8[56])|[35]3)\\d{8}$");
-            matcher = ptn.matcher(phone);
-            if (!matcher.find()) {
-                addFieldError("phone", "手机号码格式不正确");
-            }
+        matcher = phonePtn.matcher(newPhone);
+        if (!matcher.find()) {
+            addFieldError("newPhone", "新手机号码格式不正确");
         }
 
         if (regPeople == null) return;
@@ -149,12 +178,12 @@ public class Step01PostAction extends DataAccessAction {
 
     }
 
-    public String getCode() {
-        return code;
+    public String getCheckCode() {
+        return checkCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCheckCode(String checkCode) {
+        this.checkCode = checkCode;
     }
 
     public String getName() {
@@ -181,11 +210,31 @@ public class Step01PostAction extends DataAccessAction {
         this.phone = phone;
     }
 
+    public String getNewPhone() {
+        return newPhone;
+    }
+
+    public void setNewPhone(String newPhone) {
+        this.newPhone = newPhone;
+    }
+
     public int getMedicalType() {
         return medicalType;
     }
 
     public void setMedicalType(int medicalType) {
         this.medicalType = medicalType;
+    }
+
+    public boolean isChgPhone() {
+        return chgPhone;
+    }
+
+    public void setChgPhone(boolean chgPhone) {
+        this.chgPhone = chgPhone;
+    }
+
+    public int getTtt() {
+        return ttt;
     }
 }

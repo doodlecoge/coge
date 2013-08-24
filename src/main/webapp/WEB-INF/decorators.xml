@@ -16,6 +16,7 @@
         <pattern>/queryRegister_*</pattern>
         <pattern>/load_doc_schedule</pattern>
         <pattern>/query_phone</pattern>
+        <pattern>/sms_vc</pattern>
     </decorator>
 
     <decorator name="main" page="main.vm">

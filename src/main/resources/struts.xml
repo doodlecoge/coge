@@ -108,6 +108,8 @@
 
         <action name="query_by_id" class="query_by_id">
         </action>
+        <action name="sms_vc" class="sms_vc">
+        </action>
 
         <action name="step02" class="step02_action">
             <result name="success" type="velocity">pages/step02.vm</result>
