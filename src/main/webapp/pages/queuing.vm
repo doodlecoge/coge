@@ -26,12 +26,6 @@
         }
     </style>
     <script type="text/javascript">
-        function ts() {
-            return new Date() - 0;
-        }
-
-
-
         function tryAccess() {
             var xhr = jQuery.ajax({
                 url: 'async/queryQueuingPosition',
@@ -52,18 +46,6 @@
             xhr.fail(function(data) {
                 $("#loading").html('加载失败！');
             });
-
-//            jQuery.get('async/queryQueuingPosition', {t: ts()},function (data) {
-//                if (data.success && parseInt(data.data) < 1) {
-//                    location.href = "step01";
-//                } else {
-//                    var order = parseInt(data.data);
-//                    $(".num").html(order);
-//                    setTimeout(tryAccess, 5000);
-//                }
-//            }, "json").fail(function () {
-//                        setTimeout(tryAccess, 5000);
-//                    });
 
         }
         $(function () {

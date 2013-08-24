@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -31,6 +32,69 @@
             }
 
         }
+
+        $(function () {
+            $("#id").blur(function () {
+                var id = jQuery.trim($("#id").val());
+                if (id == '') return;
+
+                var xhr = jQuery.ajax({
+                    type: "POST",
+                    url: "query_by_id",
+                    data: {id: id},
+                    dataType: "json"
+                });
+
+                xhr.done(function (data) {
+                    console.log(data);
+                    if (data.success) {
+                        $("#phone").val(data.phone);
+                        $("#phone_hid").val(data.phone);
+                        $("#name").val(data.name);
+                        $("#phone").prop("disabled", true);
+                        $("#name").prop("disabled", true);
+                        $("#chg_phone").show();
+                        $("#phone_validate_row").hide();
+                        $("#new_phone_row").hide();
+                        $("#chg_phone").val("更改手机");
+                    } else {
+                        $("#phone").prop("disabled", false);
+                        $("#name").prop("disabled", false);
+                        $("#phone").val("");
+                        $("#name").val("");
+                        $("#name").focus();
+                        $("#phone_validate_row").show();
+                        $("#chg_phone").hide();
+                    }
+                });
+            });
+
+
+            $("#chg_phone").click(function () {
+                var t = $(this);
+                if(t.val() == "更改手机") {
+                    $("#phone_validate_row").show();
+                    $("#new_phone_row").show();
+                    t.val("取消更改");
+                } else {
+                    $("#phone_validate_row").hide();
+                    $("#new_phone").val('');
+                    $("#check_code").val('');
+                    $("#new_phone_row").hide();
+                    t.val("更改手机");
+                }
+            });
+
+
+//            $("#phone").blur(function () {
+//                var newVal = $("#phone").val();
+//                var oldVal = $("#phone_hid").val();
+//
+//                if (newVal != oldVal) {
+//                    $("#phone_validate_row").css('display', '');
+//                }
+//            });
+        });
     </script>
 </head>
 
@@ -50,6 +114,7 @@
     <div class="step01"></div>
     <div class="right-cont">
 
+
         <form action="step01_post_action" method="post">
 
             <table class="tb">
@@ -61,12 +126,17 @@
 
                 <tbody>
                 <tr>
-                    <td>身份证号</td>
+                    <td colspan="3" style="color: #f66; font-weight: bold; font-size: 16px;">
+                        第一次使用或更换手机，需要进行手机验证。
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right">身份证号</td>
                     <td>
                         #if($id)
-                            <input type="text" class="txt" name="id" value="$id"/>
+                            <input type="text" class="txt" id="id" name="id" value="$id"/>
                         #else
-                            <input type="text" class="txt" name="id" value=""/>
+                            <input type="text" class="txt" id="id" name="id" value=""/>
                         #end
                     </td>
 
@@ -82,13 +152,16 @@
                     #end
 
 
+
+
+                ###################################################################################
                 <tr>
-                    <td>姓　　名</td>
+                    <td style="text-align: right">姓　　名</td>
                     <td>
                         #if($name)
-                            <input type="text" class="txt" name="name" value="$name"/>
+                            <input type="text" disabled="disabled" class="txt" name="name" id="name" value="$name"/>
                         #else
-                            <input type="text" class="txt" name="name" value=""/>
+                            <input type="text" disabled="disabled" class="txt" name="name" id="name" value=""/>
                         #end
                     </td>
 
@@ -110,14 +183,24 @@
                     #end
 
 
+
+                ###################################################################################
                 <tr>
-                    <td>手机号码</td>
+                    <td style="text-align: right">手机号码</td>
                     <td>
                         #if($phone)
-                            <input type="text" class="txt" name="phone" value="$phone"/>
+                            <input type="hidden" id="phone_hid" name="phone_hid" value="$phone"/>
+                            <input type="text" disabled="disabled"
+                                   class="txt" name="phone" id="phone" value="$phone"
+                                   style="width: 120px;"/>
                         #else
-                            <input type="text" class="txt" name="phone" value=""/>
+                            <input type="hidden" id="phone_hid" name="phone_hid"/>
+                            <input type="text" disabled="disabled"
+                                   class="txt" name="phone" id="phone"
+                                   style="width: 120px;"/>
                         #end
+
+                        <input type="button" style="display: none;" id="chg_phone" value="更改手机"/>
                     </td>
                     <td>用于接收就诊提醒短信</td>
                 </tr>
@@ -131,29 +214,51 @@
                     #end
 
 
+                ###################################################################################
+                <tr id="new_phone_row" style="display: none;">
+                    <td style="text-align: right">新手机号码</td>
+                    <td>
+
+                        <input type="text" class="txt" name="new_phone" id="new_phone" style="width: 120px;"/>
+
+                    </td>
+                    <td>请输入新手机号码</td>
+                </tr>
+
+
+                ###################################################################################
+                <tr style="display: none;" id="phone_validate_row">
+                    <td style="text-align: right">手机验证码</td>
+                    <td>
+                        <input type="text" name="check_code" id="check_code" style="width: 120px"/>
+                        <input type="button" value="发送"/>
+                    </td>
+                    <td style="color: #f66;">先点击发送按钮，然后输入手机收到的短信验证码</td>
+                </tr>
+
                 <tr>
-                    <td>就诊类型</td>
+                    <td style="text-align: right">就诊类型</td>
                     <td>
                         <select name="medicalType" id="medicalType">
                             <option value="0">自　　费</option>
                             <option value="1">市民卡</option>
-##                            <option value="2">园区医保</option>
+                        ##                            <option value="2">园区医保</option>
                         </select>
                     </td>
                     <td>请选择就诊医保类型，园区医保暂不支持，吴江市民卡暂不支持预约。</td>
                 </tr>
-##                <tr>
-##                    <td>市民卡号<br/>医保编号</td>
-##                    <td>
-##                        <input type="text" class="txt" id="cardId" name="cardId"/>
-##                    </td>
-##                    <td></td>
-##                </tr>
-##                <tr>
-##                    <td>验证码</td>
-##                    <td><input type="text" class="txt" name="code"/></td>
-##                    <td>看不清，点击图片换一张</td>
-##                </tr>
+                ##                <tr>
+                ##                    <td>市民卡号<br/>医保编号</td>
+                ##                    <td>
+                ##                        <input type="text" class="txt" id="cardId" name="cardId"/>
+                ##                    </td>
+                ##                    <td></td>
+                ##                </tr>
+                ##                <tr>
+                ##                    <td>验证码</td>
+                ##                    <td><input type="text" class="txt" name="code"/></td>
+                ##                    <td>看不清，点击图片换一张</td>
+                ##                </tr>
                 <tr>
                     <td colspan="3">&nbsp;</td>
                 </tr>
@@ -161,7 +266,7 @@
                     <td colspan="3">
                         <input type="checkbox" id="agreement" checked="true"/>
                         <label for="agreement">&nbsp;
-                                我已阅读并接受《苏州市预约挂号服务平台服务协议》
+                            我已阅读并接受《苏州市预约挂号服务平台服务协议》
                             <a href="pages/licence.jsp" target="_blank">
                                 点击查看
                             </a>
@@ -171,8 +276,7 @@
 
                 <tr id="agree" style="display: none;">
                     <td colspan="3" style="color: #f00; font-weight: bold;">
-
-                            必须同意《苏州市预约挂号服务平台服务协议》才能进行挂号！
+                        必须同意《苏州市预约挂号服务平台服务协议》才能进行挂号！
                     </td>
                 </tr>
 

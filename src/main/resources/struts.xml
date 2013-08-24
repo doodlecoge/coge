@@ -28,6 +28,11 @@
                 <param name="root">jsonValue</param>
             </result>
 
+            <result name="json" type="json">
+                <param name="contentType">plain/text</param>
+                <param name="root">jsonMap</param>
+            </result>
+
             <result name="now_allow" type="redirectAction">
                 <param name="actionName">index</param>
             </result>
@@ -39,9 +44,9 @@
             <result name="ERR" type="velocity">pages/err.vm</result>
         </global-results>
 
-        <global-exception-mappings>
-            <exception-mapping exception="java.lang.Exception" result="not_found"></exception-mapping>
-        </global-exception-mappings>
+        <!--<global-exception-mappings>-->
+        <!--<exception-mapping exception="java.lang.Exception" result="not_found"></exception-mapping>-->
+        <!--</global-exception-mappings>-->
 
 
     </package>
@@ -99,6 +104,9 @@
             <result name="error" type="redirectAction">
                 <param name="actionName">index?error=${msg}</param>
             </result>
+        </action>
+
+        <action name="query_by_id" class="query_by_id">
         </action>
 
         <action name="step02" class="step02_action">
@@ -169,7 +177,7 @@
             <result name="success">pages/dgh_zj_wsDoctor.jsp</result>
         </action>
     </package>
-            <!--<result name="success">/pages/dgh_zj_wsDoctor.jsp</result>-->
+    <!--<result name="success">/pages/dgh_zj_wsDoctor.jsp</result>-->
 
 
     <package name="last" namespace="/" extends="parent">
