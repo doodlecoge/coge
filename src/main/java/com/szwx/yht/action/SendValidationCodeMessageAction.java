@@ -50,8 +50,6 @@ public class SendValidationCodeMessageAction extends ActionSupport implements Se
         }
 
 
-
-
         HttpServletRequest request = ServletActionContext.getRequest();
         String addr = request.getRemoteAddr();
         jsonMap = new HashMap<String, Object>();
@@ -76,11 +74,13 @@ public class SendValidationCodeMessageAction extends ActionSupport implements Se
             smsRequest.body = new SmsRequestBody(phone, msg);
             smsRequest.header = new SmsRequestHeader();
 
-            SmsResponse smsResponse = SmsUtils.sendShortMessage(smsRequest);
-            log.debug("send validation code result: " + smsResponse.body.result);
+            // todo: uncomment this to send short message
+            //SmsResponse smsResponse = SmsUtils.sendShortMessage(smsRequest);
+            //log.debug("send validation code result: " + smsResponse.body.result);
 
 
             session.put("validation_code", code);
+            log.error("==========" + code);
             jsonMap.put("success", true);
 
             smsHis.put(addr, Calendar.getInstance().getTimeInMillis());

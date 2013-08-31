@@ -1,0 +1,129 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>手机短信验证</title>
+    <style type="text/css">
+        .txt {
+            width: 250px;
+            outline: none;
+        }
+
+        .tb td {
+            padding: 5px 5px;
+        }
+
+        .err {
+            color: #f00;
+            font-weight: bold;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(function () {
+            var phone = $('#phone').val();
+            phone = jQuery.trim(phone);
+
+            $("#send_sms").click(function () {
+                var xhr = jQuery.ajax({
+                    url: 'sms_vc',
+                    data: {phone: phone},
+                    dataType: "json"
+                });
+
+                xhr.done(function (data) {
+                    showCountDown(data.sec);
+                });
+            });
+        });
+
+
+        function showCountDown(s) {
+            console.log(s);
+
+            var sec = 0;
+
+            try {
+                sec = parseInt(s);
+            } catch (e) {
+            }
+
+            sec--;
+
+            if (sec < 1) {
+                $("#send_sms").val('发送短信验证码');
+                $("#send_sms").prop('disabled', false);
+            } else {
+                $("#send_sms").val(sec + '秒后重发');
+                $("#send_sms").prop('disabled', true);
+
+                setTimeout((function (sec) {
+                    return function () {
+                        showCountDown(sec);
+                    }
+                })(sec), 1000);
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+
+<div class="col-left">
+    <ul class="menu">
+        <li><a href="javascript:void(0)" class="menu-title">网上便捷预约挂号</a></li>
+        <li><a href="javascript:void(0)" class="menu-fh12320sy">&nbsp;</a></li>
+        <li><a href="javascript:void(0)" class="menu-fhbjyyghsy">&nbsp;</a></li>
+        <li><a href="queryRegister_toQueryRegisterList" class="menu-lscx">&nbsp;</a></li>
+
+    </ul>
+</div>
+
+<div class="col-right">
+    <div class="step01"></div>
+
+    <div class="right-cont">
+        <form action="verify_new_code" METHOD="POST">
+            <p>
+
+            <h3 style="color: #f88;">首次挂号，需要短信验证手机号码</h3>
+            </p>
+
+            <p>
+                手机号码：
+                <br/>
+                <input type="text" name="phone" id="phone" value="${phone}"/>
+            </p>
+
+            <p>
+                手机验证码：
+                <br/>
+                <input type="text" name="smsCode" id="sms_code"/>
+                <input type="button" id="send_sms" value="发送短信验证码"/>
+
+
+                #if($fieldErrors.get('smsCode'))
+                    <br/>
+                    <span class="err">
+                        $fieldErrors.get('smsCode')
+                    </span>
+                #end
+            </p>
+
+            <p>
+                <input type="submit" value="下一步"/>
+            </p>
+
+            #if($fieldErrors.get('sys'))
+                <p>
+                    <span class="err">
+                        $fieldErrors.get('sys')
+                    </span>
+                </p>
+            #end
+        </form>
+    </div>
+</div>
+</body>
+</html>
+

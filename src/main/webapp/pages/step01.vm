@@ -29,8 +29,39 @@
                 $("#agree").css('display', '');
                 return false;
             }
-
         }
+
+
+        $(function () {
+            $("#id,#name").blur(function () {
+                var id = $("#id").val();
+                var name = $("#name").val();
+
+                id = jQuery.trim(id);
+                name = jQuery.trim(name);
+
+                if (id == "" || name == "") return;
+
+                var xhr = jQuery.ajax({
+                    url: "query_by_id_name",
+                    type: "POST",
+                    data: {id: id, name: name},
+                    dataType: "json"
+                });
+
+                xhr.done(function (data) {
+                    if (data.phone) {
+                        $("#phone").val(data.phone);
+                        $("#chg_phone_wrap").show();
+                    } else {
+                        $("#chg_phone_wrap").hide();
+                        $("#chg_phone").prop("checked", false);
+                    }
+
+                    $("#submit_btn").prop("disabled", false);
+                });
+            });
+        });
     </script>
 </head>
 
@@ -50,7 +81,8 @@
     <div class="step01"></div>
     <div class="right-cont">
 
-        <form action="step01_post_action" method="post">
+##        <form action="step01_post_action" method="post">
+        <form action="verify" method="post">
 
             <table class="tb">
                 <colgroup>
@@ -64,9 +96,9 @@
                     <td>身份证号</td>
                     <td>
                         #if($id)
-                            <input type="text" class="txt" name="id" value="$id"/>
+                            <input type="text" class="txt" name="id" id="id" value="$id"/>
                         #else
-                            <input type="text" class="txt" name="id" value=""/>
+                            <input type="text" class="txt" name="id" id="id"/>
                         #end
                     </td>
 
@@ -86,9 +118,9 @@
                     <td>姓　　名</td>
                     <td>
                         #if($name)
-                            <input type="text" class="txt" name="name" value="$name"/>
+                            <input type="text" class="txt" name="name" id="name" value="$name"/>
                         #else
-                            <input type="text" class="txt" name="name" value=""/>
+                            <input type="text" class="txt" name="name" id="name"/>
                         #end
                     </td>
 
@@ -114,10 +146,16 @@
                     <td>手机号码</td>
                     <td>
                         #if($phone)
-                            <input type="text" class="txt" name="phone" value="$phone"/>
+                            <input type="text" class="txt" name="phone" id="phone" style="width: 120px;"
+                                   value="$phone"/>
                         #else
-                            <input type="text" class="txt" name="phone" value=""/>
+                            <input type="text" class="txt" name="phone" id="phone" style="width: 120px;"/>
                         #end
+
+                        <span id="chg_phone_wrap" style="display: none;">
+                            <input type="checkbox" name="chgPhone" id="chg_phone" value="1" />
+                            <label for="chg_phone">修改手机号码</label>
+                        </span>
                     </td>
                     <td>用于接收就诊提醒短信</td>
                 </tr>
@@ -168,7 +206,9 @@
 
                 <tr>
                     <td colspan="3" style="text-align: center">
-                        <input type="submit" class="submit-btn" onclick="return check_form()" value="下一步"/>
+                        <input type="submit" id="submit_btn"
+                               class="submit-btn" onclick="return check_form()"
+                               value="下一步" disabled="disabled"/>
                     </td>
                 </tr>
                 </tbody>

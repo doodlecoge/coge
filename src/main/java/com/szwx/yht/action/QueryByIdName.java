@@ -17,9 +17,10 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 
-@Controller("query_by_id")
-public class QueryById extends ActionSupport {
+@Controller("query_by_id_name")
+public class QueryByIdName extends ActionSupport {
     private String id;
+    private String name;
 
     private Map<String, Object> jsonMap;
 
@@ -38,12 +39,15 @@ public class QueryById extends ActionSupport {
 
         jsonMap = new HashMap<String, Object>();
 
-        if (regPeople == null) {
+        if (regPeople == null || !regPeople.getTrueName().equals(name)) {
             jsonMap.put("success", false);
+
         } else {
+
             jsonMap.put("success", true);
             jsonMap.put("phone", regPeople.getMobile());
             jsonMap.put("name", regPeople.getTrueName());
+
         }
 
         return "json";
@@ -53,6 +57,9 @@ public class QueryById extends ActionSupport {
         this.id = id;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Map<String, Object> getJsonMap() {
         return jsonMap;

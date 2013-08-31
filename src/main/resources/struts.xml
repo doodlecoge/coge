@@ -106,8 +106,26 @@
             </result>
         </action>
 
-        <action name="query_by_id" class="query_by_id">
+        <action name="query_by_id_name" class="query_by_id_name">
         </action>
+
+        <action name="verify" class="verify">
+            <result name="err" type="velocity">/pages/step01.vm</result>
+            <result name="change_phone" type="velocity">/pages/change_phone.vm</result>
+            <result name="verify_phone" type="velocity">/pages/verify_phone.vm</result>
+            <result name="success" type="redirectAction">step02</result>
+        </action>
+
+        <action name="verify_new_code" class="verify" method="verifyNewCode">
+            <result type="velocity" name="err">/pages/verify_phone.vm</result>
+            <result type="redirectAction" name="success">step02</result>
+        </action>
+
+        <action name="verify_change_code" class="verify" method="verifyChangeCode">
+            <result type="velocity" name="err">/pages/change_phone.vm</result>
+            <result type="redirectAction" name="success">step02</result>
+        </action>
+
         <action name="sms_vc" class="sms_vc">
         </action>
 
