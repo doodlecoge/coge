@@ -1,4 +1,3 @@
-<!doctype html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -32,123 +31,6 @@
             }
 
         }
-
-        $(function () {
-            $("#id").blur(function () {
-                var id = jQuery.trim($("#id").val());
-                if (id == '') return;
-
-                var xhr = jQuery.ajax({
-                    type: "POST",
-                    url: "query_by_id",
-                    data: {id: id},
-                    dataType: "json"
-                });
-
-                xhr.done(function (data) {
-                    console.log(data);
-                    if (data.success) {
-                        $("#phone").val(data.phone);
-                        $("#phone_hid").val(data.phone);
-                        $("#name").val(data.name);
-                        $("#phone").prop("disabled", true);
-                        $("#name").prop("disabled", true);
-                        $("#chg_phone_grp").show();
-                        $("#phone_validate_row").hide();
-                        $("#new_phone_row").hide();
-                    } else {
-                        $("#phone").prop("disabled", false);
-                        $("#name").prop("disabled", false);
-                        $("#phone").val("");
-                        $("#name").val("");
-                        $("#name").focus();
-                        $("#phone_validate_row").show();
-                        $("#chg_phone_grp").hide();
-                    }
-                });
-            });
-
-
-            $("#chg_phone").click(function () {
-                var t = $(this);
-
-                if (t.is(":checked")) {
-                    $("#phone_validate_row").show();
-                    $("#new_phone_row").show();
-                } else {
-                    $("#phone_validate_row").hide();
-                    $("#new_phone").val('');
-                    $("#check_code").val('');
-                    $("#new_phone_row").hide();
-                }
-            });
-
-
-            $("#send_vc").click(function () {
-                var no = '';
-                no = jQuery.trim($("#phone").val());
-                if (no == '') {
-                    alert('手机号码不能为空');
-                    return;
-                }
-
-
-                $("#send_vc").prop("disabled", true);
-
-                var xhr = jQuery.ajax({
-                    url: "sms_vc",
-                    data: {phone: no},
-                    dataType: "json",
-                    cache: false
-                });
-
-                xhr.done(function (data) {
-                    showCountDown(data.sec);
-                });
-
-                xhr.fail(function () {
-
-                });
-            });
-
-
-//            $("#phone").blur(function () {
-//                var newVal = $("#phone").val();
-//                var oldVal = $("#phone_hid").val();
-//
-//                if (newVal != oldVal) {
-//                    $("#phone_validate_row").css('display', '');
-//                }
-//            });
-        });
-
-
-        function showCountDown(sec) {
-            try {
-                sec = parseInt(sec);
-            } catch (e) {
-                return;
-            }
-
-            var target = $("#send_vc");
-
-            if (sec < 0) {
-                target.prop('disabled', false);
-                target.val('发送手机验证码');
-                return;
-            }
-
-            target.prop('disabled', true);
-            target.val(sec + '秒后重发');
-
-            sec--;
-
-            console.log(sec);
-
-            setTimeout((function (sec) {
-                return function() {showCountDown(sec);};
-            })(sec), 1000);
-        }
     </script>
 </head>
 
@@ -168,7 +50,6 @@
     <div class="step01"></div>
     <div class="right-cont">
 
-
         <form action="step01_post_action" method="post">
 
             <table class="tb">
@@ -180,17 +61,12 @@
 
                 <tbody>
                 <tr>
-                    <td colspan="3" style="color: #f66; font-weight: bold; font-size: 16px; text-align: center;">
-                        第一次使用或更换手机，需要进行手机验证。
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: right">身份证号</td>
+                    <td>身份证号</td>
                     <td>
                         #if($id)
-                            <input type="text" class="txt" id="id" name="id" value="$id"/>
+                            <input type="text" class="txt" name="id" value="$id"/>
                         #else
-                            <input type="text" class="txt" id="id" name="id" value=""/>
+                            <input type="text" class="txt" name="id" value=""/>
                         #end
                     </td>
 
@@ -206,16 +82,13 @@
                     #end
 
 
-
-
-                ###################################################################################
                 <tr>
-                    <td style="text-align: right">姓　　名</td>
+                    <td>姓　　名</td>
                     <td>
                         #if($name)
-                            <input type="text" disabled="disabled" class="txt" name="name" id="name" value="$name"/>
+                            <input type="text" class="txt" name="name" value="$name"/>
                         #else
-                            <input type="text" disabled="disabled" class="txt" name="name" id="name" value=""/>
+                            <input type="text" class="txt" name="name" value=""/>
                         #end
                     </td>
 
@@ -237,28 +110,14 @@
                     #end
 
 
-
-                ###################################################################################
                 <tr>
-                    <td style="text-align: right">手机号码</td>
+                    <td>手机号码</td>
                     <td>
                         #if($phone)
-                            <input type="hidden" id="phone_hid" name="phone_hid" value="$phone"/>
-                            <input type="text" disabled="disabled"
-                                   class="txt" name="phone" id="phone" value="$phone"
-                                   style="width: 120px;"/>
+                            <input type="text" class="txt" name="phone" value="$phone"/>
                         #else
-                            <input type="hidden" id="phone_hid" name="phone_hid"/>
-                            <input type="text" disabled="disabled"
-                                   class="txt" name="phone" id="phone"
-                                   style="width: 120px;"/>
+                            <input type="text" class="txt" name="phone" value=""/>
                         #end
-
-                        $ttt
-                        <span id="chg_phone_grp" #if($ttt != 1) style="display: none;" #end>
-                            <input type="checkbox" name="chg_phone" id="chg_phone"/>
-                            <label for="chg_phone">更改手机</label>
-                        </span>
                     </td>
                     <td>用于接收就诊提醒短信</td>
                 </tr>
@@ -272,30 +131,8 @@
                     #end
 
 
-                ###################################################################################
-                <tr id="new_phone_row" style="display: none;">
-                    <td style="text-align: right">新手机号码</td>
-                    <td>
-
-                        <input type="text" class="txt" name="newPhone" id="new_phone" style="width: 120px;"/>
-
-                    </td>
-                    <td>请输入新手机号码</td>
-                </tr>
-
-
-                ###################################################################################
-                <tr style="display: none;" id="phone_validate_row">
-                    <td style="text-align: right">手机验证码</td>
-                    <td>
-                        <input type="text" name="checkCode" id="check_code" style="width: 120px"/>
-                        <input type="button" id="send_vc" value="发送手机验证码"/>
-                    </td>
-                    <td style="color: #f66;">先点击发送按钮，然后输入手机收到的短信验证码</td>
-                </tr>
-
                 <tr>
-                    <td style="text-align: right">就诊类型</td>
+                    <td>就诊类型</td>
                     <td>
                         <select name="medicalType" id="medicalType">
                             <option value="0">自　　费</option>
@@ -305,18 +142,7 @@
                     </td>
                     <td>请选择就诊医保类型，园区医保暂不支持，吴江市民卡暂不支持预约。</td>
                 </tr>
-                ##                <tr>
-                ##                    <td>市民卡号<br/>医保编号</td>
-                ##                    <td>
-                ##                        <input type="text" class="txt" id="cardId" name="cardId"/>
-                ##                    </td>
-                ##                    <td></td>
-                ##                </tr>
-                ##                <tr>
-                ##                    <td>验证码</td>
-                ##                    <td><input type="text" class="txt" name="code"/></td>
-                ##                    <td>看不清，点击图片换一张</td>
-                ##                </tr>
+
                 <tr>
                     <td colspan="3">&nbsp;</td>
                 </tr>
@@ -334,6 +160,7 @@
 
                 <tr id="agree" style="display: none;">
                     <td colspan="3" style="color: #f00; font-weight: bold;">
+
                         必须同意《苏州市预约挂号服务平台服务协议》才能进行挂号！
                     </td>
                 </tr>
