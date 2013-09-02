@@ -33,35 +33,41 @@
 
 
         $(function () {
-            $("#id,#name").blur(function () {
-                var id = $("#id").val();
-                var name = $("#name").val();
+            foo();
 
-                id = jQuery.trim(id);
-                name = jQuery.trim(name);
-
-                if (id == "" || name == "") return;
-
-                var xhr = jQuery.ajax({
-                    url: "query_by_id_name",
-                    type: "POST",
-                    data: {id: id, name: name},
-                    dataType: "json"
-                });
-
-                xhr.done(function (data) {
-                    if (data.phone) {
-                        $("#phone").val(data.phone);
-                        $("#chg_phone_wrap").show();
-                    } else {
-                        $("#chg_phone_wrap").hide();
-                        $("#chg_phone").prop("checked", false);
-                    }
-
-                    $("#submit_btn").prop("disabled", false);
-                });
-            });
+            $("#id,#name").blur(foo);
         });
+
+        function foo () {
+            var id = $("#id").val();
+            var name = $("#name").val();
+
+            id = jQuery.trim(id);
+            name = jQuery.trim(name);
+
+            if (id == "" || name == "") return;
+
+            var xhr = jQuery.ajax({
+                url: "query_by_id_name",
+                type: "POST",
+                data: {id: id, name: name},
+                dataType: "json"
+            });
+
+            xhr.done(function (data) {
+                if (data.phone) {
+                    $("#phone").val(data.phone);
+                    $("#phone").prop("readonly", true);
+                    $("#chg_phone_wrap").show();
+                } else {
+                    $("#phone").prop("readonly", false);
+                    $("#chg_phone_wrap").hide();
+                    $("#chg_phone").prop("checked", false);
+                }
+
+                $("#submit_btn").prop("disabled", false);
+            });
+        }
     </script>
 </head>
 

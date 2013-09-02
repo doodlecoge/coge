@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="cache-control" content="no"/>
     <title>修改手机号码</title>
     <style type="text/css">
         .txt {
@@ -27,7 +28,8 @@
                 var xhr = jQuery.ajax({
                     url: 'sms_vc',
                     data: {phone: phone},
-                    dataType: "json"
+                    dataType: "json",
+                    cache: false
                 });
 
                 xhr.done(function (data) {
@@ -38,8 +40,6 @@
 
 
         function showCountDown(s) {
-            console.log(s);
-
             var sec = 0;
 
             try {
@@ -70,12 +70,19 @@
 <body>
 
 <div class="col-left">
+##    <ul class="menu">
+##        <li><a href="javascript:void(0)" class="menu-title">网上便捷预约挂号</a></li>
+##        <li><a href="javascript:void(0)" class="menu-fh12320sy">&nbsp;</a></li>
+##        <li><a href="javascript:void(0)" class="menu-fhbjyyghsy">&nbsp;</a></li>
+##        <li><a href="queryRegister_toQueryRegisterList" class="menu-lscx">&nbsp;</a></li>
+##    </ul>
+
+
     <ul class="menu">
         <li><a href="javascript:void(0)" class="menu-title">网上便捷预约挂号</a></li>
         <li><a href="javascript:void(0)" class="menu-fh12320sy">&nbsp;</a></li>
-        <li><a href="javascript:void(0)" class="menu-fhbjyyghsy">&nbsp;</a></li>
+        <li><a href="index" class="menu-fhbjyyghsy">&nbsp;</a></li>
         <li><a href="queryRegister_toQueryRegisterList" class="menu-lscx">&nbsp;</a></li>
-
     </ul>
 </div>
 
@@ -98,7 +105,7 @@
                     <input type="text" name="phone" id="phone"/>
                 #end
                 <br>
-                <span style="color: orange">验证短信将发送到此手机</span>
+                <span style="color: dodgerblue; font-weight: bold;">验证短信将发送到此手机</span>
             </p>
 
             <p>
@@ -110,7 +117,7 @@
                     <input type="text" name="phone2" id="phone2"/>
                 #end
                 <br/>
-                <span style="color: orange">不填则表示您不修改手机</span>
+                <span style="color: dodgerblue; font-weight: bold;">不填则表示您不修改手机</span>
             </p>
 
             <p>

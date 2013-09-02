@@ -44,9 +44,9 @@
             <result name="ERR" type="velocity">pages/err.vm</result>
         </global-results>
 
-        <!--<global-exception-mappings>-->
-        <!--<exception-mapping exception="java.lang.Exception" result="not_found"></exception-mapping>-->
-        <!--</global-exception-mappings>-->
+        <global-exception-mappings>
+        <exception-mapping exception="java.lang.Exception" result="not_found"></exception-mapping>
+        </global-exception-mappings>
 
 
     </package>
@@ -111,6 +111,7 @@
 
         <action name="verify" class="verify">
             <result name="err" type="velocity">/pages/step01.vm</result>
+            <result name="input" type="velocity">/pages/step01.vm</result>
             <result name="change_phone" type="velocity">/pages/change_phone.vm</result>
             <result name="verify_phone" type="velocity">/pages/verify_phone.vm</result>
             <result name="success" type="redirectAction">step02</result>

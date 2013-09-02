@@ -41,7 +41,7 @@ public class SendValidationCodeMessageAction extends ActionSupport implements Se
 
             for (String s : smsHis.keySet()) {
                 Long aLong = smsHis.get(s);
-                if (now - aLong > 1000 * Config.getInt("sms_verify_time_gap")) {
+                if (now - aLong > 60000 * Config.getInt("sms_timeout")) {
                     smsHis.remove(s);
                 }
             }
@@ -75,8 +75,8 @@ public class SendValidationCodeMessageAction extends ActionSupport implements Se
             smsRequest.header = new SmsRequestHeader();
 
             // todo: uncomment this to send short message
-            //SmsResponse smsResponse = SmsUtils.sendShortMessage(smsRequest);
-            //log.debug("send validation code result: " + smsResponse.body.result);
+            SmsResponse smsResponse = SmsUtils.sendShortMessage(smsRequest);
+            log.debug("send validation code result: " + smsResponse.body.result);
 
 
             session.put("validation_code", code);

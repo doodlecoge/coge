@@ -53,6 +53,8 @@ public class IndexAction extends ActionSupport {
     private Cookie getCookie() {
         HttpServletRequest request = ServletActionContext.getRequest();
         Cookie[] cookies = request.getCookies();
+        if(cookies == null) return null;
+
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals(cookieName)) return cookie;
         }

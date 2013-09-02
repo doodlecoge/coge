@@ -138,6 +138,7 @@ public class VerificationAction extends ActionSupport {
         fieldErrors = new HashMap<String, List<String>>();
 
         if (phone.equals(phone2)) return SUCCESS;
+        if (phone2 == null || phone2.trim().equals("")) return SUCCESS;
 
         Map<String, Object> session = ServletActionContext.getContext().getSession();
         Object validation_code = session.get("validation_code");

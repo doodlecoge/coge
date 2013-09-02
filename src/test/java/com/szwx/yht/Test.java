@@ -1,5 +1,7 @@
 package com.szwx.yht;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,17 +14,7 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) {
-        List<Integer> lst = new ArrayList<Integer>();
-
-        lst.add(1);
-        lst.add(1);
-        lst.add(1);
-        lst.add(1);
-        lst.add(1);
-
-
-        lst.removeAll(lst);
-
-        System.out.println(lst.size());
+        String str = StringUtils.escape("您在12320网上预约挂号的手机验证码为{code}，如果不是您本人请忽略此消息。");
+        System.out.println(str);
     }
 }
