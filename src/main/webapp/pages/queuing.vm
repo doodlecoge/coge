@@ -27,13 +27,17 @@
     </style>
     <script type="text/javascript">
         function tryAccess() {
+
+
             var xhr = jQuery.ajax({
                 url: 'async/queryQueuingPosition',
+                type: "GET",
                 cache: false,
-                dataType: "json"
+                dataType: "text"
             });
 
-            xhr.done(function(data) {
+            xhr.done(function (data) {
+                data = eval('(' + data + ')');
                 if (data.success && parseInt(data.data) < 1) {
                     location.href = "step01";
                 } else {
@@ -43,8 +47,8 @@
                 }
             });
 
-            xhr.fail(function(data) {
-                $("#loading").html('加载失败！');
+            xhr.fail(function (data) {
+                $("#loading").find("h3").html('加载失败！');
             });
 
         }
@@ -65,7 +69,8 @@
         </div>
     </div>
     <div id="loading" style="text-align: center;">
-        <h3>加载中。。。请稍后</div></h3>
+        <h3>加载中。。。请稍后</h3>
+    </div>
 </div>
 </body>
 </html>

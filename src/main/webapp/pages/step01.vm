@@ -20,6 +20,11 @@
 
     <script type="text/javascript">
         function check_form() {
+
+            if($("#submit_btn").prop("disabled") == false) {
+                foo();
+            }
+
             var val = $("#agreement").is(":checked");
 
             if (val == true) {
@@ -38,6 +43,7 @@
             $("#id,#name").blur(foo);
         });
 
+        var trys = 0;
         function foo () {
             var id = $("#id").val();
             var name = $("#name").val();
@@ -67,6 +73,11 @@
 
                 $("#submit_btn").prop("disabled", false);
             });
+
+            xhr.fail(function(data) {
+                if(trys++ < 3) foo();
+                else $("#submit_btn").prop("disabled", false);
+            });
         }
     </script>
 </head>
@@ -76,8 +87,8 @@
 <div class="col-left">
     <ul class="menu">
         <li><a href="javascript:void(0)" class="menu-title">网上便捷预约挂号</a></li>
-        <li><a href="javascript:void(0)" class="menu-fh12320sy">&nbsp;</a></li>
-        <li><a href="javascript:void(0)" class="menu-fhbjyyghsy">&nbsp;</a></li>
+        <li><a href="http://www.jssz12320.cn" class="menu-fh12320sy">&nbsp;</a></li>
+        <li><a href="index" class="menu-fhbjyyghsy">&nbsp;</a></li>
         <li><a href="queryRegister_toQueryRegisterList" class="menu-lscx">&nbsp;</a></li>
 
     </ul>

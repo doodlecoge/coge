@@ -23,8 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.Cookie;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -52,11 +54,31 @@ public class Step04PostAction extends DataAccessAction {
 
     private static Calendar lastRegTime = Calendar.getInstance();
 
+    private List<Long> regHis = new ArrayList<Long>();
+
     public String exec() {
-        Calendar now = Calendar.getInstance();
-        if (now.getTimeInMillis() - lastRegTime.getTimeInMillis() < Config.getInt("RegGapSec") * 1000) {
+//        Calendar now = Calendar.getInstance();
+//        if (now.getTimeInMillis() - lastRegTime.getTimeInMillis() < Config.getInt("RegGapSec") * 1000) {
+//            return "wait";
+//        } else lastRegTime = now;
+
+        long now = Calendar.getInstance().getTimeInMillis();
+        long boundary = now - 60000;
+
+        int cnt = 0;
+
+        while (regHis.size() > 0) {
+            if (regHis.get(0) < boundary) regHis.remove(0);
+            else break;
+        }
+
+
+        int len = regHis.size();
+
+
+        if (len > Config.getInt("reg_limit_per_min")) {
             return "wait";
-        } else lastRegTime = now;
+        }
 
 
         Object rpCode = session.get("rpCode");
@@ -158,6 +180,7 @@ public class Step04PostAction extends DataAccessAction {
         }
 
         if (call.isSuccess()) {
+            regHis.add(now);
             call.setMsg(regOrder.getCode() + "");
             accessControl.leave(getIp(), getSessionId());
 

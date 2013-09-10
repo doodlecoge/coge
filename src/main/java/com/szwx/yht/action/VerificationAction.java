@@ -71,7 +71,6 @@ public class VerificationAction extends ActionSupport {
         RegPeople regPeople = registerService.getRegPeople(id);
 
         if (regPeople == null) {
-            verifyId();
             verifyName();
             verifyPhone();
 

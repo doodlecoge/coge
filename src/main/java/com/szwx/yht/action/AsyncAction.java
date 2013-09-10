@@ -36,7 +36,6 @@ public class AsyncAction extends ActionSupport {
         try {
             responseJson(true, (order + 1 - Global.RegLimit) + "");
         } catch (IOException e) {
-
         }
 
     }

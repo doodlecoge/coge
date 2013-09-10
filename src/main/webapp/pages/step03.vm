@@ -46,7 +46,7 @@
 <div class="col-left">
     <ul class="menu">
         <li><a href="javascript:void(0)" class="menu-title">网上便捷预约挂号</a></li>
-        <li><a href="javascript:void(0)" class="menu-fh12320sy">&nbsp;</a></li>
+        <li><a href="http://www.jssz12320.cn" class="menu-fh12320sy">&nbsp;</a></li>
         <li><a href="index" class="menu-fhbjyyghsy">&nbsp;</a></li>
         <li><a href="queryRegister_toQueryRegisterList" class="menu-lscx">&nbsp;</a></li>
         <li><a href="step02" class="menu-ghyy">&nbsp;</a></li>
