@@ -34,7 +34,7 @@ public class AccessControl {
             if (!sessionSet.contains(sid)) {
                 int num = ipAccessInfo.getSessionNumber();
 
-                if (num >= Config.getInt("MaxSessionPerIp"))
+                if (num > Config.getInt("MaxSessionPerIp"))
                     throw new HrsExpression(SecurityErrorMessage.EXCEED_SESSION_PER_IP_LIMIT.name());
 
                 ipAccessInfo.addSession(sid);
