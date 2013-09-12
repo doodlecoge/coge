@@ -30,7 +30,7 @@
             if(typeof console != "undefined") {
                 console.log(msg);
             } else {
-                alert(msg);
+//                alert(msg);
             }
         }
 
@@ -87,7 +87,7 @@
         </div>
     </div>
     <div id="loading" style="text-align: center;">
-        <h3>第<i></i>次加载。。。请稍后</h3>
+        <h3>第&nbsp;<i></i>&nbsp;次加载。。。请稍后</h3>
     </div>
 </div>
 </body>
