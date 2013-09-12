@@ -85,9 +85,9 @@
             <result name="ERR" type="velocity">pages/err.vm</result>
         </global-results>
 
-        <!--<global-exception-mappings>-->
-        <!--<exception-mapping exception="java.lang.Exception" result="not_found"></exception-mapping>-->
-        <!--</global-exception-mappings>-->
+        <global-exception-mappings>
+        <exception-mapping exception="java.lang.Exception" result="not_found"></exception-mapping>
+        </global-exception-mappings>
 
 
     </package>

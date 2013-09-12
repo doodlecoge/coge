@@ -33,15 +33,18 @@ public class IndexAction extends ActionSupport {
 
         Cookie cookie = getCookie();
 
-        if(cookie != null) {
+        if (cookie != null) {
             String oid = cookie.getValue();
 
-            if(!id.equals(oid) && AccessControl.sessionSet.contains(oid)) {
-                log.debug("valid data, allow access");
-                ApplicationAction.accessControl.leave(ip, oid);
-                ApplicationAction.accessControl.requestAccess(ip, id);
-            } else {
-                ApplicationAction.accessControl.requestAccess(ip, id);
+            try {
+                if (!id.equals(oid) && AccessControl.sessionSet.contains(oid)) {
+                    log.debug("valid data, allow access");
+                    ApplicationAction.accessControl.leave(ip, oid);
+                    ApplicationAction.accessControl.requestAccess(ip, id);
+                } else {
+                    ApplicationAction.accessControl.requestAccess(ip, id);
+                }
+            } catch (Exception e) {
             }
         } else {
             Cookie newCookie = new Cookie(cookieName, id);
@@ -55,7 +58,7 @@ public class IndexAction extends ActionSupport {
     private Cookie getCookie() {
         HttpServletRequest request = ServletActionContext.getRequest();
         Cookie[] cookies = request.getCookies();
-        if(cookies == null) return null;
+        if (cookies == null) return null;
 
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals(cookieName)) return cookie;

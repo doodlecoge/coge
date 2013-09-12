@@ -34,10 +34,14 @@ public class AsyncAction extends ActionSupport {
             lastUpdateTime = Calendar.getInstance();
         }
 
-        ApplicationAction.accessControl.requestAccess(
-                ServletActionContext.getRequest().getRemoteAddr(),
-                ServletActionContext.getRequest().getSession().getId()
-        );
+        try {
+            ApplicationAction.accessControl.requestAccess(
+                    ServletActionContext.getRequest().getRemoteAddr(),
+                    ServletActionContext.getRequest().getSession().getId()
+            );
+        } catch (Exception e) {
+            log.debug("----");
+        }
 
         int order = ApplicationAction.accessControl.getOrder(
                 ServletActionContext.getRequest().getSession().getId()
