@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,6 +25,9 @@ import java.io.IOException;
 public class Step05Action extends ActionSupport {
     private long orderId;
     private RegOrder regOrder;
+    private Date qhStartTime;
+
+    private String msg;
     @Autowired
     private IRegisterService registerService;
 
@@ -33,18 +38,27 @@ public class Step05Action extends ActionSupport {
         try {
             regOrder = registerService.getRegOrder(orderId);
 
+            qhStartTime = regOrder.getStateTime();
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(qhStartTime.getTime());
+
+            cal.add(Calendar.MINUTE, -30);
+
+            qhStartTime = cal.getTime();
 
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     String mobile = regOrder.getRegPeople().getMobile();
-                    if(mobile == null || mobile.trim().equals("")) return;
+                    if (mobile == null || mobile.trim().equals("")) return;
 
                     String shortMessage = SendMsgUtil.getShortMessage2(regOrder);
+                    msg = shortMessage;
 
                     SmsRequest req = new SmsRequest();
                     req.header = new SmsRequestHeader();
-                    req.body = new SmsRequestBody(regOrder.getRegPeople().getMobile(), shortMessage);
+                    req.body = new SmsRequestBody(
+                            regOrder.getRegPeople().getMobile(), shortMessage);
                     try {
                         log.warn("[" + regOrder.getRegPeople().getMobile() + "],[" + shortMessage + "]");
                         SmsResponse smsResponse = SmsUtils.sendShortMessage(req);
@@ -78,5 +92,21 @@ public class Step05Action extends ActionSupport {
 
     public void setRegOrder(RegOrder regOrder) {
         this.regOrder = regOrder;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public Date getQhStartTime() {
+        return qhStartTime;
+    }
+
+    public void setQhStartTime(Date qhStartTime) {
+        this.qhStartTime = qhStartTime;
     }
 }

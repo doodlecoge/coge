@@ -1,10 +1,13 @@
 package com.szwx.yht.action;
 
+import com.hch.security.Config;
 import com.opensymphony.xwork2.ActionSupport;
 import com.szwx.yht.Global;
 import com.szwx.yht.RegistrationQueue;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -20,23 +23,34 @@ import java.util.Calendar;
  */
 //public class AsyncAction extends DataAccessAction {
 public class AsyncAction extends ActionSupport {
+    private static final Logger log = LoggerFactory.getLogger(AsyncAction.class);
     private static Calendar lastUpdateTime = Calendar.getInstance();
 
     public void queryQueuingPosition() {
+        long st = System.currentTimeMillis();
         Calendar now = Calendar.getInstance();
         if (now.getTimeInMillis() - lastUpdateTime.getTimeInMillis() > 1000 * 60) {
             ApplicationAction.accessControl.removeStaleSession();
             lastUpdateTime = Calendar.getInstance();
         }
 
+        ApplicationAction.accessControl.requestAccess(
+                ServletActionContext.getRequest().getRemoteAddr(),
+                ServletActionContext.getRequest().getSession().getId()
+        );
+
         int order = ApplicationAction.accessControl.getOrder(
                 ServletActionContext.getRequest().getSession().getId()
         );
 
         try {
-            responseJson(true, (order + 1 - Global.RegLimit) + "");
+            responseJson(true, (order + 1 - Config.getInt("RegLimit")) + "");
         } catch (IOException e) {
+            log.error("-", e);
         }
+        long et = System.currentTimeMillis();
+
+        log.debug("use time: " + (et - st));
 
     }
 

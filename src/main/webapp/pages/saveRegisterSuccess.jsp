@@ -40,49 +40,64 @@
     <div class="mainBox">
 
 
-            <div class="successBg">
-                请于
+        <div class="successBg">
+            请于
                 <span class="fontRed1">
                     <fmt:formatDate
-                        value="${regOrder.regPipelined.workSchema.workDate}"
-                        pattern="yyyy-MM-dd EEE"/>
-                    <fmt:formatDate value="${regOrder.stateTime }" pattern="HH:mm"/>
+                            value="${regOrder.regPipelined.workSchema.workDate}"
+                            pattern="yyyy-MM-dd EEE"/>
+                    <fmt:formatDate value="${qhStartTime }" pattern="HH:mm"/>
                         ——
-                    <fmt:formatDate value="${regOrder.endTime }" pattern="HH:mm"/>
+                    <fmt:formatDate value="${regOrder.stateTime }" pattern="HH:mm"/>
+                    <%--<fmt:formatDate value="${regOrder.endTime }" pattern="HH:mm"/>--%>
                 </span>
-                至
+            至
                 <span class="fontRed1">
                     ${regOrder.regPipelined.workSchema.depart.hospital.name }
                 </span>
-                的一卡通终端机，选择"智慧医疗取号"。
+            的一卡通终端机，选择"智慧医疗取号"。
 
-                <s:if test="regOrder.regPipelined.workSchema.doctorExpert!=null">
-                    您预约的专家为
+            <s:if test="regOrder.regPipelined.workSchema.doctorExpert!=null">
+                您预约的专家为
                     <span class="fontRed1">
                         ${regOrder.regPipelined.workSchema.depart.departName }
                         ${regOrder.regPipelined.workSchema.doctorExpert.name }
                     </span>
-                    ,您的就诊序号为
+                ,您的就诊序号为
                     <span class="fontRed1">
-                        ${regOrder.treatOrder }
+                            ${regOrder.treatOrder }
                     </span>
-                    <s:if test="showCode">
-                        ，就诊密码为
+                <s:if test="showCode">
+                    ，就诊密码为
                     <span class="fontRed1">
                             ${regOrder.checkCode }
                     </span>
-                    </s:if>。
-                    <s:if test="regOrder.idealRegisterTime!=null">
-                        您的预期就诊时间为<span class="fontRed1">
-                        <fmt:formatDate
-                                value="${regOrder.idealRegisterTime}"
-                                pattern="HH:mm"/></span>,此时间仅供参考。
-                    </s:if>
+                </s:if>。
+                <s:if test="regOrder.idealRegisterTime!=null">
+                    您的预期就诊时间为<span class="fontRed1">
+                    <fmt:formatDate
+                            value="${regOrder.idealRegisterTime}"
+                            pattern="HH:mm"/></span>,此时间仅供参考。
                 </s:if>
-                <s:else>
-                    您的就诊密码为<span class="fontRed1"> ${regOrder.checkCode }</span>。
-                </s:else>
-            </div>
+            </s:if>
+            <s:else>
+                您的就诊密码为<span class="fontRed1"> ${regOrder.checkCode }</span>。
+            </s:else>
+
+
+            <br/>
+            <br/>
+            <br/>
+            <span style="color: #33f; font-weight: bold;">
+                本网站预约采用后付费方式。请您就诊完毕后，至医院窗口及时支付挂号费用
+            </span>
+        </div>
+
+        <div style="width:656px; margin: 0 auto;">
+            <br/>
+            <br/>
+            发送给您的短信内容为：${msg}
+        </div>
         <div class="btnArea1">
             <input name="" type="button" value="确认" class="btnNormal"
                    onclick="location='index.action'"/>

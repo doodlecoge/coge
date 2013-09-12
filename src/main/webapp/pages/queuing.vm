@@ -26,8 +26,20 @@
         }
     </style>
     <script type="text/javascript">
-        function tryAccess() {
+        function log(msg) {
+            if(typeof console != "undefined") {
+                console.log(msg);
+            } else {
+                alert(msg);
+            }
+        }
 
+
+        var i = 0;
+        function tryAccess() {
+            i++;
+
+            $("#loading").find("i").html("" + i);
 
             var xhr = jQuery.ajax({
                 url: 'async/queryQueuingPosition',
@@ -37,6 +49,9 @@
             });
 
             xhr.done(function (data) {
+
+                log('> ' + data);
+
                 data = eval('(' + data + ')');
                 if (data.success && parseInt(data.data) < 1) {
                     location.href = "step01";
@@ -48,7 +63,10 @@
             });
 
             xhr.fail(function (data) {
+                log('< ' + data);
+
                 $("#loading").find("h3").html('加载失败！');
+                setTimeout(tryAccess, 5000);
             });
 
         }
@@ -69,7 +87,7 @@
         </div>
     </div>
     <div id="loading" style="text-align: center;">
-        <h3>加载中。。。请稍后</h3>
+        <h3>第<i></i>次加载。。。请稍后</h3>
     </div>
 </div>
 </body>

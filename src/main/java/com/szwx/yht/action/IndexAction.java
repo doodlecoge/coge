@@ -40,6 +40,8 @@ public class IndexAction extends ActionSupport {
                 log.debug("valid data, allow access");
                 ApplicationAction.accessControl.leave(ip, oid);
                 ApplicationAction.accessControl.requestAccess(ip, id);
+            } else {
+                ApplicationAction.accessControl.requestAccess(ip, id);
             }
         } else {
             Cookie newCookie = new Cookie(cookieName, id);

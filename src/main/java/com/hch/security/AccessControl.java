@@ -86,7 +86,7 @@ public class AccessControl {
             if (info.getSessionId().equalsIgnoreCase(sid)) return i;
         }
 
-        return -1;
+        return Config.getInt("QueueSize");
     }
 
     public void leave(String ip, String sid) {

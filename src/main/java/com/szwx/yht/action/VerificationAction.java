@@ -53,6 +53,9 @@ public class VerificationAction extends ActionSupport {
     public String execute() throws Exception {
         Map<String, Object> session = ServletActionContext.getContext().getSession();
         session.put("id", id);
+        session.put("name", name);
+        session.put("phone", phone);
+        session.put("type", medicalType);
 
 
         boolean bChangePhone = chgPhone == 1;
@@ -84,6 +87,9 @@ public class VerificationAction extends ActionSupport {
 
         if (fieldErrors.size() > 0) {
             return "err";
+        } else {
+            regPeople.setMedicalType(medicalType);
+            registerService.saveOrUpdatePeople(regPeople);
         }
 
         if (bChangePhone) {

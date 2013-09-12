@@ -47,6 +47,7 @@ public class QueryByIdName extends ActionSupport {
             jsonMap.put("success", true);
             jsonMap.put("phone", regPeople.getMobile());
             jsonMap.put("name", regPeople.getTrueName());
+            jsonMap.put("type", regPeople.getMedicalType());
 
         }
 

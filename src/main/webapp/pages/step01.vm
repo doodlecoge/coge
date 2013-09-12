@@ -21,8 +21,8 @@
     <script type="text/javascript">
         function check_form() {
 
-            if($("#submit_btn").prop("disabled") == false) {
-                foo();
+            if ($("#submit_btn").prop("disabled") == false) {
+//                foo();
             }
 
             var val = $("#agreement").is(":checked");
@@ -44,7 +44,7 @@
         });
 
         var trys = 0;
-        function foo () {
+        function foo() {
             var id = $("#id").val();
             var name = $("#name").val();
 
@@ -71,11 +71,16 @@
                     $("#chg_phone").prop("checked", false);
                 }
 
+                if (typeof data.type == "number") {
+                    $("#medicalType").find("option").prop('selected', false);
+                    $("#medicalType").find("option[value=" + data.type + "]").prop('selected', true);
+                }
+
                 $("#submit_btn").prop("disabled", false);
             });
 
-            xhr.fail(function(data) {
-                if(trys++ < 3) foo();
+            xhr.fail(function (data) {
+                if (trys++ < 3) foo();
                 else $("#submit_btn").prop("disabled", false);
             });
         }
@@ -98,7 +103,7 @@
     <div class="step01"></div>
     <div class="right-cont">
 
-##        <form action="step01_post_action" method="post">
+    ##        <form action="step01_post_action" method="post">
         <form action="verify" method="post">
 
             <table class="tb">
@@ -170,7 +175,7 @@
                         #end
 
                         <span id="chg_phone_wrap" style="display: none;">
-                            <input type="checkbox" name="chgPhone" id="chg_phone" value="1" />
+                            <input type="checkbox" name="chgPhone" id="chg_phone" value="1"/>
                             <label for="chg_phone">修改手机号码</label>
                         </span>
                     </td>
