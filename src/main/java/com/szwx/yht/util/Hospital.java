@@ -18,7 +18,8 @@ public enum Hospital {
     ZYYY("ZYYY", "苏州中医医院"),
     JLYY("JLYY", "苏州九龙医院"),
     SZGJ("SZGJ", "苏州广济医院"),
-    SZWY("SZWY", "苏州第五人民医院")
+    SZWY("SZWY", "苏州第五人民医院"),
+    WZYY("WZYY", "苏州吴中人民医院")
     ;
 
     public String code;
