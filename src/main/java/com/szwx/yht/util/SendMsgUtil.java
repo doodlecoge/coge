@@ -576,6 +576,12 @@ public class SendMsgUtil {
             } else if ("SLDQ".equals(ws.getDepart().getHospital()
                     .getHospitalCode())) {
                 return 0;
+            } else if ("SLBB".equals(ws.getDepart().getHospital()
+                        .getHospitalCode())) {
+                    return 0;
+            } else if ("SZET".equals(ws.getDepart().getHospital()
+                    .getHospitalCode())) {
+                return 0;
             } else {
                 return 1;
             }
@@ -587,6 +593,10 @@ public class SendMsgUtil {
                     .getHospitalCode())) {
                 return 0;
             } else if ("SLDQ".equals(dp.getDepart().getHospital()
+                    .getHospitalCode())
+                    || "SLBB".equals(dp.getDepart().getHospital()
+                    .getHospitalCode())
+                    ||"SZET".equals(dp.getDepart().getHospital()
                     .getHospitalCode())) {
                 if (orderMsg.getRegPipelined().getWorkType() == 1 && TimeUtil.formatDate1(orderMsg.getStateTime(), "HH:mm").toString().trim().equals("7:30") && TimeUtil.formatDate1(orderMsg.getEndTime(), "HH:mm").toString().trim().equals("11:30")) {
                     return 1;

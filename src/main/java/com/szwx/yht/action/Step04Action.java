@@ -60,6 +60,12 @@ public class Step04Action extends DataAccessAction {
                     return "time_error";
                 }
 
+                if(!inDocWorkTime()) {
+                    errMsg = "每天只能在" + Config.getString("doc_reg_time_window").trim();
+                    errMsg += "间预约专家号！";
+                    return "time_error";
+                }
+
                 regPeople = registerService.getRegPeople(oid.toString());
             } catch (ServiceException e) {
             }
@@ -79,6 +85,25 @@ public class Step04Action extends DataAccessAction {
 
 
         return SUCCESS;
+    }
+
+
+    private boolean inDocWorkTime() {
+        String str = Config.getString("doc_reg_time_window");
+        String[] strs = str.split("-");
+        String start = strs[0].trim();
+        String end = strs[1].trim();
+
+        if(start.length() == 4) {
+            start = "0" + start;
+        }
+
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String nowString = sdf.format(now.getTime());
+
+
+        return nowString.compareTo(start) >= 0 && nowString.compareTo(end) <= 0;
     }
 
     private boolean canRegRt() {

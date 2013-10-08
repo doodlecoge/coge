@@ -62,6 +62,8 @@ public class Step04PostAction extends DataAccessAction {
 //            return "wait";
 //        } else lastRegTime = now;
 
+
+
         long now = Calendar.getInstance().getTimeInMillis();
         long boundary = now - 60000;
 
@@ -108,6 +110,8 @@ public class Step04PostAction extends DataAccessAction {
 
 
         try {
+
+            regOrder = new RegOrder();
 
             RegPipelined regPipelined = registerService.getRegPiplinedById(Long.parseLong(rpCode.toString()));
 

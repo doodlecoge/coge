@@ -46,9 +46,9 @@
                     <fmt:formatDate
                             value="${regOrder.regPipelined.workSchema.workDate}"
                             pattern="yyyy-MM-dd EEE"/>
-                    <fmt:formatDate value="${qhStartTime }" pattern="HH:mm"/>
+                    <%--<fmt:formatDate value="${qhStartTime }" pattern="HH:mm"/>
                         ——
-                    <fmt:formatDate value="${regOrder.stateTime }" pattern="HH:mm"/>
+                    <fmt:formatDate value="${regOrder.stateTime }" pattern="HH:mm"/>--%>
                     <%--<fmt:formatDate value="${regOrder.endTime }" pattern="HH:mm"/>--%>
                 </span>
             至
