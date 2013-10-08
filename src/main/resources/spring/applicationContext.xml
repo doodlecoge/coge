@@ -87,6 +87,22 @@
     </bean>
 
 
+
+    <bean id="intervalTime" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.szwx.yht.job.intervalTimeUpdateWorkTimeInfo"/>
+        <property name="jobDataAsMap">
+            <map><entry key="size" value="10"/></map>
+        </property>
+        <property name="applicationContextJobDataKey" value="applicationContext"/>
+    </bean>
+    <bean id="intervalTimeTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="intervalTime"/>
+        <property name="cronExpression" value="0 0/10 6-20 * * ?"/>
+    </bean>
+
+
+
+
     <!--<import resource="classpath*:spring/applicationContext-security.xml"/>-->
     <import resource="classpath*:spring/applicationContext-actions.xml"/>
     <import resource="classpath*:spring/applicationContext-dao.xml"/>

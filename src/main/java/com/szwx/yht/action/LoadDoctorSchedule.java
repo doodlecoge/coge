@@ -1,11 +1,16 @@
 package com.szwx.yht.action;
 
+import com.szwx.yht.dao.IRegOrderDAO;
+import com.szwx.yht.dao.IRegisterDAO;
 import com.szwx.yht.dto.WSDoctorListDto;
 import com.szwx.yht.exception.ActionException;
+import com.szwx.yht.exception.DaoException;
 import com.szwx.yht.exception.HrsExpression;
 import com.szwx.yht.exception.ServiceException;
 import com.szwx.yht.service.IRegisterService;
 import com.szwx.yht.util.Page;
+import com.szwx.yht.util.TimeUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -28,12 +33,17 @@ public class LoadDoctorSchedule extends DataAccessAction {
     @Autowired
     private IRegisterService registerService;
 
+
+
+
+
     private List<WSDoctorListDto> wsDoctors;
     private List<Date> listDate;
     private String docName;
     private String deptName;
     private Page page = new Page();
     private String regType;
+
 
     public void setRegType(String regType) {
         this.regType = regType;
@@ -64,10 +74,17 @@ public class LoadDoctorSchedule extends DataAccessAction {
 //                docName, deptName, page, hospitalId
 //        );
 
-        wsDoctors = registerService.getWsDoctorListDtos(docName,deptName,page,hospitalId);
+//        wsDoctors = registerService.getWsDoctorListDtos(docName,deptName,page,hospitalId);
+
+
+
+        wsDoctors = registerService.getWsDoctorListDtosimpl(docName,deptName,page,hospitalId);
 
         return SUCCESS;
     }
+
+
+
 
 
     public IRegisterService getRegisterService() {

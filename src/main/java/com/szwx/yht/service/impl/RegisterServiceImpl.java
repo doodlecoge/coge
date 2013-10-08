@@ -45,28 +45,103 @@ public class RegisterServiceImpl extends CommonService implements IRegisterServi
     ) throws ServiceException {
 
 
-//		this.sendToProvince(null);
+
         List<WSDoctorListDto> wsDoctors = new ArrayList<WSDoctorListDto>();
         try {
+            long t1 = Calendar.getInstance().getTimeInMillis();
             wsDoctors = registerDao.getWsDoctorLists(docName, deptName, page, hospitalId);
+            long t2 = Calendar.getInstance().getTimeInMillis();
+            System.out.println("query doc time " + (t2 - t1));
         } catch (DaoException e) {
             e.printStackTrace();
             throw new ServiceException("RegisterServiceImpl.getWsDoctorListDtos:系统异常1" + e.getMessage(), e);
         }
 
         try {
+            long t1 = Calendar.getInstance().getTimeInMillis();
             wsDoctors = this.getWSDoctorDtos(wsDoctors);
+            long t2 = Calendar.getInstance().getTimeInMillis();
+            System.out.println("query doc pipeline time " + (t2 - t1));
         } catch (Exception e) {
             e.printStackTrace();
             throw new ServiceException("RegisterServiceImpl.getWsDoctorListDtos:系统异常2" + e.getMessage(), e);
         }
 
         return wsDoctors;
+
+//        List<WSDoctorListDto> wsList = new ArrayList<WSDoctorListDto>();
+//
+//        try {
+//
+//            wsList = (List<WSDoctorListDto>) sessionSerive.get("workTimeInfo");
+//            if (wsList != null && wsList.size() > 0) {
+//                wsList = filterDoctorList(wsList, docName, deptName, page, hospitalId);
+//                wsList = this.getWSDoctorDtos(wsList);
+//                System.out.println("使用session查询成功,size:" + wsList.size());
+//                return wsList;
+//            } else {
+//                return this.getWsDoctorListDtos(docName, deptName, page, hospitalId);
+//            }
+//        } catch (Exception e) {
+//
+//        }
+//
+//        return wsList;
+
+
+//		this.sendToProvince(null);
+//        List<WSDoctorListDto> wsDoctors = new ArrayList<WSDoctorListDto>();
+//        try {
+//            wsDoctors = registerDao.getWsDoctorLists(docName, deptName, page, hospitalId);
+//        } catch (DaoException e) {
+//            e.printStackTrace();
+//            throw new ServiceException("RegisterServiceImpl.getWsDoctorListDtos:系统异常1" + e.getMessage(), e);
+//        }
+//
+//        try {
+//            wsDoctors = this.getWSDoctorDtos(wsDoctors);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new ServiceException("RegisterServiceImpl.getWsDoctorListDtos:系统异常2" + e.getMessage(), e);
+//        }
+//
+//        return wsDoctors;
+
+
     }
 
 
-    public List<WSDoctorListDto> getWsDoctorListDtosimpl(String docName,
-                                                         String deptName, Page page, String hospitalId) throws ServiceException {
+
+
+
+
+
+    long cacheTime = 0;
+
+
+    public List<WSDoctorListDto> getWsDoctorListDtosimpl(
+            String docName,
+
+            String deptName, Page page, String hospitalId
+    ) throws ServiceException {
+        sessionSerive.put("---", Calendar.getInstance());
+
+        long ts = Calendar.getInstance().getTimeInMillis() - cacheTime;
+
+        if(ts > 1000 * 60 * 30) {
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    log.error("---update---work---time---info---");
+                    updateWorkTimeInfo();
+                    log.error("---update---work---time---info---finished");
+                }
+            }).start();
+
+            cacheTime = Calendar.getInstance().getTimeInMillis();
+        };
+
         try {
             Integer isUserSession = Integer.valueOf(Flag.read("isUserSession").toString().trim());
             List<WSDoctorListDto> wsList = new ArrayList<WSDoctorListDto>();
@@ -75,12 +150,23 @@ public class RegisterServiceImpl extends CommonService implements IRegisterServi
             } else {
                 wsList = (List<WSDoctorListDto>) sessionSerive.get("workTimeInfo");
                 if (wsList != null && wsList.size() > 0) {
+                    long t1 = Calendar.getInstance().getTimeInMillis();
                     wsList = filterDoctorList(wsList, docName, deptName, page, hospitalId);
+                    long t2 = Calendar.getInstance().getTimeInMillis();
                     wsList = this.getWSDoctorDtos(wsList);
+                    long t3 = Calendar.getInstance().getTimeInMillis();
+
+                    System.out.println("cache time: " + (t2 - t1));
+                    System.out.println("query time: " + (t3 - t2));
+
                     System.out.println("使用session查询成功,size:" + wsList.size());
                     return wsList;
                 } else {
-                    return this.getWsDoctorListDtos(docName, deptName, page, hospitalId);
+                    long t1 = Calendar.getInstance().getTimeInMillis();
+                    List<WSDoctorListDto> wsDoctorListDtos = this.getWsDoctorListDtos(docName, deptName, page, hospitalId);
+                    long t2 = Calendar.getInstance().getTimeInMillis();
+                    System.out.println("not use cache time: " + (t2 - t1));
+                    return  wsDoctorListDtos;
                 }
 
             }
