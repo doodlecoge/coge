@@ -23,6 +23,11 @@
     }
 </style>
 <script type="text/javascript">
+    jQuery.ajaxSetup ({
+        cache: false
+    });
+
+
     function loadTimeListDepart(node, departId, workScheamId) {
         $("#pipList").html('查询排班中。。。请稍等。。。');//清除之前的load内容
         var autoNode = $("#pipList");

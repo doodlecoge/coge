@@ -20,7 +20,7 @@ public class AccessControl {
     public static final Map<String, IpAccessInfo> ipAccessList = new HashMap<String, IpAccessInfo>();
 
 
-    public void requestAccess(String ip, String sid) {
+    public synchronized void requestAccess(String ip, String sid) {
         removeStaleSession();
 
         IpAccessInfo ipAccessInfo = ipAccessList.get(ip);
@@ -106,6 +106,9 @@ public class AccessControl {
         sessionQueue.remove(uai);
 
         IpAccessInfo ipAccessInfo = ipAccessList.get(uai.getIp());
+
+        if(ipAccessInfo == null) return;
+
         ipAccessInfo.removeSession(uai.getSessionId());
         if (ipAccessInfo.getSessionNumber() == 0) {
             ipAccessList.remove(uai.getIp());

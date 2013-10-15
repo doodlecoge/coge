@@ -44,7 +44,8 @@
                 'depart.departCodeNo': departId, workType: workType,
                 workDate: workDate, workScheamId: workScheamId,
                 'hospital.hospitalCode': hospitalCode
-            }
+            },
+            cache: false
         });
 
         xhr.done(function(data) {
