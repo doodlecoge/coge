@@ -101,7 +101,7 @@
                 代挂客服
             </th>
             <th width="4%">
-                状态
+                操作
             </th>
         </tr>
         <s:if test="regOrders!=null">

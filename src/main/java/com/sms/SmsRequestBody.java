@@ -42,6 +42,11 @@ public class SmsRequestBody {
 
         if(matcher.find()) return 0;
 
+        ptn = Pattern.compile("^1[35]3\\d{8}$");         //CDMA
+        matcher = ptn.matcher(mobile);
+
+        if(matcher.find()) return 0;
+
 
         ptn = Pattern.compile("^1(3[0-2]|5[56]|8[56])\\d{8}$");
         matcher = ptn.matcher(mobile);
